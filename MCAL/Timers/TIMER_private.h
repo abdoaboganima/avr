@@ -1,0 +1,6 @@
+#ifndef _TIMER_PRIVATE_H_
+#define _TIMER_PRIVATE_H_
+
+#define PRESCALER_MASK 0b11111000
+
+#endif /* _TIMER_PRIVATE_H_ */
