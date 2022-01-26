@@ -1,7 +1,7 @@
 /*******************************************************
  *
  * @file   DIO_register.h
- * @breif  contains the addresses of the register
+ * @brief  contains the addresses of the register
  * @author Abdulrahman Aboghanima
  * @date   Wed Aug 18 16:37:25 2021
  *
