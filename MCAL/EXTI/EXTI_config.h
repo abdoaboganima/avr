@@ -1,3 +1,11 @@
+ /**
+ * @file EXTI_config.h
+ * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
+ * @brief User pre-build configuration for the `EXTI` (external interrupt)
+ * @version 0.1
+ * @copyright Copyright (c) 2022
+ * @todo How on earth there is expansion for the macros below however I don't include anything
+ */
 #ifndef _EXTI_CONFIG_H_
 #define _EXTI_CONFIG_H_
 

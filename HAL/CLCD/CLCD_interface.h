@@ -1,16 +1,13 @@
 /**
  * @file CLCD_interface.h
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
- * @brief 
+ * @brief User interface of the `CLCD`
  * @version 0.1
- * @date 2022-01-26
- * 
  * @copyright Copyright (c) 2022
- * 
  */
-/** @addtogroup HAL_drivers
- * @{
- * @addtogroup CLCD_drivers
+
+/**   @addtogroup HAL_drivers
+ * @{ @addtogroup CLCD_drivers
  * @{
  */
 
@@ -19,22 +16,21 @@
 #define _CLCD_INTERFACE_H_
 #include "../../LIB/STD_TYPES.h"
 
-/**
- * @brief Initializes the Crystal LCD
- * 
+/** @addtogroup CLCD_initialization
+ *  @brief Initializes the Crystal LCD
+ * @{
  */
 void CLCD_Init(void);
+/*@}*/
 
 /**
  * @brief Sends a string to the LCD
- * 
  * @param string 
  */
 void CLCD_SendString(const char *string);
 
 /**
  * @brief Moves the curser to a specific location in the screen \f${(x, y)}\f$
- * 
  * @param XPos 
  * @param YPos 
  */
@@ -54,20 +50,18 @@ void CLCD_GoTOXY(const u8 XPos, const u8 YPos);
 void CLCD_SendSpecialChar(const u8 *charArray, const u8 charIndex, const u8 XPos, const u8 YPos);
 
 /**
- * @brief Clears the LCD
- * 
+ * @brief Clears the LCD 
  */
 void CLCD_Clear(void);
 
 /**
- * @brief Blinks the curser of the LCD
- * 
+ * @brief Blinks the curser of the LCD 
  */
 void CLCD_Blink(void);
 
 /**
  * @brief Converts unsigned value of base x to an ASCII character
- * @TODO : Implement that function in the string library 
+ * TODO : Implement that function in the string library 
  * @param value 
  * @param base 
  * @return char* 

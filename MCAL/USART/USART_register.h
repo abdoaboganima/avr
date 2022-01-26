@@ -1,3 +1,10 @@
+ /**
+ * @file USART_register.h
+ * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
+ * @brief The IO memory mapped addresses of the USART
+ * @version 0.1
+ * @copyright Copyright (c) 2022
+ */
 #ifndef _USART_REGISTER_H_
 #define _USART_REGISTER_H_
 
@@ -5,7 +12,7 @@
 
 #define  UCSRA           *((volatile u8*) 0x2b)
 
-#define  UCSRA_MPCM  0
+#define  UCSRA_MPCM  0   
 #define  UCSRA_U2X   1
 #define  UCSRA_PE    2
 #define  UCSRA_DOR   3

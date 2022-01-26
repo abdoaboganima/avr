@@ -1,3 +1,10 @@
+ /**
+ * @file EXTI_interface.h
+ * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
+ * @brief User interface of the EXTI(External Interrupt)
+ * @version 0.1
+ * @copyright Copyright (c) 2022
+ */
 #ifndef _EXTI_INTERFACE_H_
 #define _EXTI_INTERFACE_H_
 #include "../../LIB/STD_TYPES.h"
@@ -37,10 +44,10 @@ void __vector_3(void) __attribute__((signal));
 
 
 //TODO
-/*For prebuild configiration*/
+/*For prebuild configuration*/
 void EXTI_Int0SetSenseControl(u8 sense);
 void EXTI_Int1SetSenseControl(u8 sense);
 void EXTI_Int2SetSenseControl(u8 sense);
-//Also Implement periheral interrupt enable using prebuild configuration
+//Also Implement peripheral interrupt enable using prebuild configuration
 
 #endif /* _EXTI_INTERFACE_H_ */

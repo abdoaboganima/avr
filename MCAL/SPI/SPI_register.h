@@ -1,3 +1,10 @@
+ /**
+ * @file SPI_register.h
+ * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
+ * @brief The IO and regisers memory mapped addresses
+ * @version 0.1
+ * @copyright Copyright (c) 2022
+ */
 #ifndef _SPI_REGISTER_H_
 #define _SPI_REGISTER_H_
 

@@ -1,3 +1,10 @@
+ /**
+ * @file CLCD_program.c
+ * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
+ * @brief The implementations of the CLCD_drivers
+ * @version 0.1
+ * @copyright Copyright (c) 2022
+ */
 #include "../../LIB/STD_TYPES.h"
 #include "../../LIB/BIT_MATH.h"
 #include "CLCD_interface.h"

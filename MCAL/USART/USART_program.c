@@ -1,3 +1,10 @@
+ /**
+ * @file USART_program.c
+ * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
+ * @brief  The implementations of the USART functions
+ * @version 0.1
+ * @copyright Copyright (c) 2022
+ */
 #include "../../LIB/STD_TYPES.h"
 #include "../../LIB/BIT_MATH.h"
 #include "USART_register.h"
@@ -10,12 +17,12 @@ void USART_init(void)
     If you would like to write on the `UCSRC` the `URSEL` must be set, 
     else the data will be written to the ``
    */
-  u8 UCSRC_value=0b10000110;            /*Selects the characte size to be 8-bit*/
+  u8 UCSRC_value=0b10000110;            /*Selects the character size to be 8-bit*/
   UCSRC=UCSRC_value;
 
   UBRRL=51;                             /*Baud rate 9600 bit/second */
   
-  /* Enable Receving and transmitting*/
+  /* Enable Receiving and transmitting*/
   SET_BIT(UCSRB, UCSRB_RXEN);
   SET_BIT(UCSRB, UCSRB_TXEN);
   

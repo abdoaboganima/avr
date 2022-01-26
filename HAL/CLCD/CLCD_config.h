@@ -1,18 +1,16 @@
  /*****************************************************************************
  * @file CLCD_config.h
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
- * @brief 
+ * @brief User configuration for the CLCD
  * @version 0.1
  * @date 2022-01-26
  * 
  * @copyright Copyright (c) 2022
  * 
  ****************************************************************************/
-/** @addtogroup HAL_drivers
- * @{
- * @addtogroup CLCD_drivers
- * @{
- * @addtogroup CLCD_config
+/**   @addtogroup HAL_drivers
+ * @{ @addtogroup CLCD_drivers
+ * @{ @addtogroup CLCD_config
  * @{
  */
 

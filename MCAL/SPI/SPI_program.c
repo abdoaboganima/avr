@@ -1,3 +1,10 @@
+ /**
+ * @file SPI_program.c
+ * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
+ * @brief The implementation of the SPI_driver
+ * @version 0.1
+ * @copyright Copyright (c) 2022
+ */
 #include "SPI_register.h"
 #include "SPI_interface.h"
 #include "SPI_config.h"

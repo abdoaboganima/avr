@@ -1,3 +1,11 @@
+ /**
+ * @file WDT_program.c
+ * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
+ * @brief The implementations of the `Wathchdog Timer`'s function
+ * @version 0.1
+ * @copyright Copyright (c) 2022
+ */
+
 #include "../../LIB/STD_TYPES.h"
 #include "../../LIB/BIT_MATH.h"
 
