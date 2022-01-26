@@ -6,9 +6,11 @@
  * @date   Wed Aug 18 20:02:44 2021
  *
  *******************************************************/
-/** @addtogroup MCAL_Drivers
-* @{
-*/
+/** @addtogroup MCAL_drivers 
+ * @{
+ *  @addtogroup DIO_drivers 
+ * @{
+ */
 #ifndef _DIO_INTERFACE_H_
 #define _DIO_INTERFACE_H_
 #include "../../LIB/STD_TYPES.h"
@@ -105,4 +107,6 @@ u8 DIO_SetPortValue(u8 Port, u8 Value);
 u8 DIO_GetPinValue(u8 Port, u8 Pin, u8 *pu8Value);
 
 #endif /* _DIO_INTERFACE_H_ */
-/** @}*/
+
+
+/** @}@}*/

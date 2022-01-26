@@ -1,6 +1,8 @@
 #include "EEPROM_interface.h"
 #include "../../MCAL/TWI/TWI_interface.h"
 #include "../../MCAL/DIO/DIO_interface.h"
+#include "../../LIB/BIT_MATH.h"
+#include "../../LIB/STD_TYPES.h"
 #include <util/delay.h>
 void EEPROM_sendByte(u8 data, u16 address)
 {

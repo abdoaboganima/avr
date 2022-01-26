@@ -1,16 +1,17 @@
 /*******************************************************
  *
  * @file   ADC_register.h
- * @breif  Defines the ADC peripherals registers
+ * @brief  Defines the ADC peripherals registers
  * @author Abdulrahman Aboghanima
  * @date   Thu Sep  9 17:03:16 2021
  *
  *******************************************************/
 
 
+
 #ifndef _ADC_REGISTER_H_
 #define _ADC_REGISTER_H_
-#include "../../LIB/STD_TYPES.h"
+
 
 /*ADC Multiplexer Selection Register*/
 #define ADMUX           *((volatile u8*) 0x27)

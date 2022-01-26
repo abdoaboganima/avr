@@ -8,6 +8,12 @@
  * @copyright Copyright (c) 2022
  * 
  */
+/** @addtogroup HAL_drivers
+ * @{
+ * @addtogroup CLCD_drivers
+ * @{
+ */
+
 
 #ifndef _CLCD_INTERFACE_H_
 #define _CLCD_INTERFACE_H_
@@ -68,3 +74,5 @@ void CLCD_Blink(void);
  */
 char *utoa(u32 value, u8 base);
 #endif /* _CLCD_INTERFACE_H_ */
+
+/*@}@}*/
