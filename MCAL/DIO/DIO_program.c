@@ -3,9 +3,9 @@
 #include "DIO_interface.h"
 #include "DIO_register.h"
 
-u8 DIO_SetPinDirection(u8 Port, u8 Pin, u8 Direction)
+uint8_t DIO_SetPinDirection(uint8_t Port, uint8_t Pin, uint8_t Direction)
 {
-  u8 Local_ErrorState=0;
+  uint8_t Local_ErrorState=0;
   if(Pin<=DIO_PIN7){
     
     if(Direction==DIO_PIN_INPUT){
@@ -34,9 +34,9 @@ u8 DIO_SetPinDirection(u8 Port, u8 Pin, u8 Direction)
 
   return Local_ErrorState;
 }
-u8 DIO_SetPortDirection(u8 Port, u8 Direction)
+uint8_t DIO_SetPortDirection(uint8_t Port, uint8_t Direction)
 {
-  u8 Local_ErrorState=0;
+  uint8_t Local_ErrorState=0;
 
   switch(Port){
   case DIO_PORTA: DDRA = Direction; break;
@@ -48,9 +48,9 @@ u8 DIO_SetPortDirection(u8 Port, u8 Direction)
 
   return Local_ErrorState;
 }
-u8 DIO_SetPinValue(u8 Port, u8 Pin, u8 Value)
+uint8_t DIO_SetPinValue(uint8_t Port, uint8_t Pin, uint8_t Value)
 {
-  u8 Local_ErrorState=0;
+  uint8_t Local_ErrorState=0;
   if(Pin<=DIO_PIN7){
     
     if(Value==DIO_PIN_HIGH){
@@ -79,9 +79,9 @@ u8 DIO_SetPinValue(u8 Port, u8 Pin, u8 Value)
   
   return Local_ErrorState;
 }
-u8 DIO_SetPortValue(u8 Port, u8 Value)
+uint8_t DIO_SetPortValue(uint8_t Port, uint8_t Value)
 {
-  u8 Local_ErrorState=0;
+  uint8_t Local_ErrorState=0;
         
   switch(Port){                                   
   case DIO_PORTA: PORTA=Value; break;   
@@ -94,16 +94,16 @@ u8 DIO_SetPortValue(u8 Port, u8 Value)
   
   return Local_ErrorState;
 }
-u8 DIO_GetPinValue(u8 Port, u8 Pin, u8 *pu8Value)
+uint8_t DIO_GetPinValue(uint8_t Port, uint8_t Pin, uint8_t *puint8_tValue)
 {
-  u8 Local_ErrorState=0;
+  uint8_t Local_ErrorState=0;
 
-  if((Pin <= DIO_PIN7 ) && (pu8Value!=NULL))
+  if((Pin <= DIO_PIN7 ) && (puint8_tValue!=NULL))
     switch(Port){                        
-    case DIO_PORTA: *pu8Value=GET_BIT(PINA, Pin); break;
-    case DIO_PORTB: *pu8Value=GET_BIT(PINB, Pin); break;
-    case DIO_PORTC: *pu8Value=GET_BIT(PINC, Pin); break;
-    case DIO_PORTD: *pu8Value=GET_BIT(PIND, Pin); break;
+    case DIO_PORTA: *puint8_tValue=GET_BIT(PINA, Pin); break;
+    case DIO_PORTB: *puint8_tValue=GET_BIT(PINB, Pin); break;
+    case DIO_PORTC: *puint8_tValue=GET_BIT(PINC, Pin); break;
+    case DIO_PORTD: *puint8_tValue=GET_BIT(PIND, Pin); break;
     default: Local_ErrorState=1; break;       
     }
   else

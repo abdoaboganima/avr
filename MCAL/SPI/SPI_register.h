@@ -9,15 +9,15 @@
 #define _SPI_REGISTER_H_
 
 
-#define SPDR     *((volatile u8*) 0x2f )
-#define SPSR     *((volatile u8*) 0x2e )
+#define SPDR     *((volatile uint8_t*) 0x2f )
+#define SPSR     *((volatile uint8_t*) 0x2e )
 
 #define SPSR_SPIF    7           /* SPI Interrupt Flag */
 #define SPSR_WCOL    6           /* Write COLlision Flag */
 #define SPSRSPI2X    0           /* Double SPI Speed Bit */
 
 
-#define SPCR     *((volatile u8*) 0x2d )
+#define SPCR     *((volatile uint8_t*) 0x2d )
 
 #define SPCR_SPIE    7           /* SPI Interrupt Enable */
 #define SPCR_SPE     6           /* SPI Enable */

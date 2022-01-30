@@ -47,13 +47,13 @@ void EXTI_Int2_Init(void)
   
 }
 
-void EXTI_disableInterrupt(u8 INT_ID)
+void EXTI_disableInterrupt(uint8_t INT_ID)
 {
   CLEAR_BIT(GICR, INT_ID);
 }
 
 
-void EXTI_enableInterrupt(u8 INT_ID)
+void EXTI_enableInterrupt(uint8_t INT_ID)
 {
   SET_BIT(GICR, INT_ID);
 }
@@ -100,7 +100,7 @@ void __vector_3(void)
 
 
 /*For prebuild configuration*/
-void EXTI_Int0SetSenseControl(u8 sense)
+void EXTI_Int0SetSenseControl(uint8_t sense)
 {
   switch(sense){
 

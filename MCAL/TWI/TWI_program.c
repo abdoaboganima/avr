@@ -18,7 +18,7 @@ void TWI_initMaster(void)
   TWSR=(0<<TWSR_TWPS0)|(0<<TWSR_TWPS1);
 
 }
-void TWI_initSlave(u8 slaveAddress)
+void TWI_initSlave(uint8_t slaveAddress)
 {
   TWAR=slaveAddress<<1;     /*Assigning an address to a slave*/
   SET_BIT(TWCR, TWCR_TWEN); /*Enable the TWI on the slave*/
@@ -57,7 +57,7 @@ TWI_errorStatus TWI_sendRepeatedStartCondition(void)
   return NoError;
 }
 
-TWI_errorStatus TWI_sendSlaveAddressWithWrite(u8 slaveAddress)
+TWI_errorStatus TWI_sendSlaveAddressWithWrite(uint8_t slaveAddress)
 {
   /*Set the slave address with the 7 MSB in the data register*/
   TWDR= (slaveAddress<<1); /*The masking is made to make the first bit 0 for write request*/
@@ -71,7 +71,7 @@ TWI_errorStatus TWI_sendSlaveAddressWithWrite(u8 slaveAddress)
   return NoError;  
 }
 
-TWI_errorStatus TWI_sendSlaveAddressWithRead(u8 slaveAddress)
+TWI_errorStatus TWI_sendSlaveAddressWithRead(uint8_t slaveAddress)
 {
   /*Set the slave address with the 7 MSB in the data register*/
   TWDR= (slaveAddress<<1)|1; /*The masking is made to make the first bit 1 for read request*/
@@ -85,7 +85,7 @@ TWI_errorStatus TWI_sendSlaveAddressWithRead(u8 slaveAddress)
   
 }
 
-TWI_errorStatus TWI_masterWriteDataByte(u8 data)
+TWI_errorStatus TWI_masterWriteDataByte(uint8_t data)
 {
   TWDR=data;
   
@@ -96,7 +96,7 @@ TWI_errorStatus TWI_masterWriteDataByte(u8 data)
 
   return NoError;
 }
-TWI_errorStatus TWI_masterReadDataByte(u8 *dataLocation)
+TWI_errorStatus TWI_masterReadDataByte(uint8_t *dataLocation)
 {
   /* Make master generate acknowledge bit after receiving the data*/
   SET_BIT(TWCR, TWCR_TWEA);

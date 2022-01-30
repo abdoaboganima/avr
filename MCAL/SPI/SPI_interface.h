@@ -35,9 +35,9 @@ void SPI_initSlave(void);
  /**
  * @brief Send or receive `data`
  * @param data 
- * @return u8 
+ * @return uint8_t 
  */
-u8 SPI_transceive(u8 data);
+uint8_t SPI_transceive(uint8_t data);
 
 #endif /* _SPI_INTERFACE_H_ */
 /*@}@}*/

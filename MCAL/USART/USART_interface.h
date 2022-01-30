@@ -25,16 +25,16 @@ void USART_init(void);
  /**
  * @brief Receive data
  * 
- * @return u8 
+ * @return uint8_t 
  */
-u8 USART_receive(void);
+uint8_t USART_receive(void);
 
  /**
  * @brief Send `data`
  * 
  * @param data 
  */
-void USART_send(u8 data);
+void USART_send(uint8_t data);
 
  /**
  * @brief Send stream of data

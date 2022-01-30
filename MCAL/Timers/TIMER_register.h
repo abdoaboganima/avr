@@ -4,7 +4,7 @@
 
 
 
-#define TCCR0 *((volatile u8*) 0x53)   //  Timer/counter0 control Registr
+#define TCCR0 *((volatile uint8_t*) 0x53)   //  Timer/counter0 control Registr
 
 #define TCCR0_CS00              0                  /*Prescaler bit0*/
 #define TCCR0_CS01              1                  /*Prescaler bit1*/ 
@@ -14,18 +14,18 @@
 #define TCCR0_COM01             5                  /**/
 #define TCCR0_WGM00             6                  /*Waveform Generation Mode bit1*/
 
-#define TCNT0 *((volatile u8*) 0x52)   /* Timer/ counter register  */
+#define TCNT0 *((volatile uint8_t*) 0x52)   /* Timer/ counter register  */
 
 /*Output Compare Register 0*/
-#define OCR0  *((volatile u8*) 0x5c)        /* Output Compare Register 0  */
+#define OCR0  *((volatile uint8_t*) 0x5c)        /* Output Compare Register 0  */
 
-#define TIMSK *((volatile u8*) 0x59)    /*Timer/Counter Interrupt Mask Register*/
+#define TIMSK *((volatile uint8_t*) 0x59)    /*Timer/Counter Interrupt Mask Register*/
 #define TIMSK_OCIE0             1       /*Timer/Counter0 Output Compare Match Interrupt Enable*/
 #define TIMSK_TICIE1            5 
 
 
-#define TCCR1A       *((volatile u8*)  0x4f)
-#define TCCR1B       *((volatile u8*)  0x4e)
+#define TCCR1A       *((volatile uint8_t*)  0x4f)
+#define TCCR1B       *((volatile uint8_t*)  0x4e)
 
 #define TCCR1A_WGM10            0
 #define TCCR1A_WGM11            1
@@ -49,20 +49,20 @@
 
 
 /*Timer/counter1 register*/
-#define TCNT1H       *((volatile u8*)  0x4d)
-#define TCNT1L       *((volatile u8*)  0x4c)
-#define TCNT1        *((volatile u16*) 0x4c)
+#define TCNT1H       *((volatile uint8_t*)  0x4d)
+#define TCNT1L       *((volatile uint8_t*)  0x4c)
+#define TCNT1        *((volatile uint16_t*) 0x4c)
 
-#define OCR1AH       *((volatile u8*)  0x4b)
-#define OCR1AL       *((volatile u8*)  0x4a)
-#define OCR1A        *((volatile u16*) 0x4a)
-#define OCR1BH       *((volatile u8*)  0x49)
-#define OCR1BL       *((volatile u8*)  0x48)
-#define OCR1B        *((volatile u16*) 0x48)
+#define OCR1AH       *((volatile uint8_t*)  0x4b)
+#define OCR1AL       *((volatile uint8_t*)  0x4a)
+#define OCR1A        *((volatile uint16_t*) 0x4a)
+#define OCR1BH       *((volatile uint8_t*)  0x49)
+#define OCR1BL       *((volatile uint8_t*)  0x48)
+#define OCR1B        *((volatile uint16_t*) 0x48)
 
-#define ICR1H        *((volatile u8*)   0x47)
-#define ICR1L        *((volatile u8*)   0x46)
-#define ICR1         *((volatile u16*)  0x46)
-//#define         *((volatile u8*))
+#define ICR1H        *((volatile uint8_t*)   0x47)
+#define ICR1L        *((volatile uint8_t*)   0x46)
+#define ICR1         *((volatile uint16_t*)  0x46)
+//#define         *((volatile uint8_t*))
 
 #endif /* _TIMER_REGISTER_H_ */

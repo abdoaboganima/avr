@@ -34,7 +34,7 @@ void CLCD_SendString(const char *string);
  * @param XPos 
  * @param YPos 
  */
-void CLCD_GoTOXY(const u8 XPos, const u8 YPos);
+void CLCD_GoTOXY(const uint8_t XPos, const uint8_t YPos);
 
 /**
  * @brief Send a special character that is NOT an ASCII character
@@ -47,7 +47,7 @@ void CLCD_GoTOXY(const u8 XPos, const u8 YPos);
  * @param XPos 
  * @param YPos 
  */
-void CLCD_SendSpecialChar(const u8 *charArray, const u8 charIndex, const u8 XPos, const u8 YPos);
+void CLCD_SendSpecialChar(const uint8_t *charArray, const uint8_t charIndex, const uint8_t XPos, const uint8_t YPos);
 
 /**
  * @brief Clears the LCD 
@@ -66,7 +66,7 @@ void CLCD_Blink(void);
  * @param base 
  * @return char* 
  */
-char *utoa(u32 value, u8 base);
+char *utoa(uint32_t value, uint8_t base);
 #endif /* _CLCD_INTERFACE_H_ */
 
 /*@}@}*/

@@ -15,7 +15,7 @@
 #ifndef _WDT_INTERFACE_H_
 #define _WDT_INTERFACE_H_
 #include "../../LIB/STD_TYPES.h"
-#define WDTCR           *((volatile u8*) 0x41)      /*Watchdog timer Control and status Register*/
+#define WDTCR           *((volatile uint8_t*) 0x41)      /*Watchdog timer Control and status Register*/
 #define WDTCR_WDP0      0                           /*Watchdog Timer Prescaler 0*/
 #define WDTCR_WDP1      1                           /*Watchdog Timer Prescaler 1*/
 #define WDTCR_WDP2      2                           /*Watchdog Timer Prescaler 2*/
@@ -33,7 +33,7 @@ void WDT_enable(void);
  * @brief 
  * @param prescaler 
  */
-void WDT_sleep(u8 prescaler);
+void WDT_sleep(uint8_t prescaler);
 
  /**
  * @brief Disable Watchdog timer

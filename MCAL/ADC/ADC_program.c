@@ -6,7 +6,7 @@
 #include "ADC_register.h"
 
 
-static u8 ADC_BusyState=IDLE;
+static uint8_t ADC_BusyState=IDLE;
 
 void ADC_init(void)
 {
@@ -31,7 +31,7 @@ void ADC_init(void)
 }
 
 
-void ADC_StartSynchConversion(u8 channel, u16 *reading)
+void ADC_StartSynchConversion(uint8_t channel, uint16_t *reading)
 {
   if(ADC_BusyState==BUSY)
     return;
@@ -54,9 +54,9 @@ void ADC_StartSynchConversion(u8 channel, u16 *reading)
   ADC_BusyState=IDLE;
 }
 
-static u16 *ptrToReading=NULL;
+static uint16_t *ptrToReading=NULL;
 static void (*ADC_callBackFunction)(void)=NULL;
-void ADC_StartAsynchConversion(u8 channel, u16 *reading, void (*callBackFunction)(void))
+void ADC_StartAsynchConversion(uint8_t channel, uint16_t *reading, void (*callBackFunction)(void))
 {
   if(ADC_BusyState==BUSY)
     return;

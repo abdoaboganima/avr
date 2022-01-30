@@ -31,8 +31,8 @@ void EXTI_Int1SetCallBack(void (*Int1Func)(void));
 void EXTI_Int2SetCallBack(void (*Int2Func)(void));
 
 
-void EXTI_enableInterrupt(u8 INT_ID);                      /*ENABLE An external Interrupt by passing its ID*/
-void EXTI_disableInterrupt(u8 INT_ID);                     /*DISABLE An external Interrupt by passing its ID*/
+void EXTI_enableInterrupt(uint8_t INT_ID);                      /*ENABLE An external Interrupt by passing its ID*/
+void EXTI_disableInterrupt(uint8_t INT_ID);                     /*DISABLE An external Interrupt by passing its ID*/
 
 /*Interrupt Service Routine(ISR) of INTx*/
 void __vector_1(void) __attribute__((signal));
@@ -45,9 +45,9 @@ void __vector_3(void) __attribute__((signal));
 
 //TODO
 /*For prebuild configuration*/
-void EXTI_Int0SetSenseControl(u8 sense);
-void EXTI_Int1SetSenseControl(u8 sense);
-void EXTI_Int2SetSenseControl(u8 sense);
+void EXTI_Int0SetSenseControl(uint8_t sense);
+void EXTI_Int1SetSenseControl(uint8_t sense);
+void EXTI_Int2SetSenseControl(uint8_t sense);
 //Also Implement peripheral interrupt enable using prebuild configuration
 
 #endif /* _EXTI_INTERFACE_H_ */

@@ -2,9 +2,9 @@
 #define _TWI_REGISTER_H_
 #include "../../LIB/STD_TYPES.h"
 
-#define TWBR  *((volatile u8*) 0x20)  /*TWI Bit Rate Register*/
+#define TWBR  *((volatile uint8_t*) 0x20)  /*TWI Bit Rate Register*/
 
-#define TWCR  *((volatile u8*) 0x56)  /*TWI Control Register*/
+#define TWCR  *((volatile uint8_t*) 0x56)  /*TWI Control Register*/
 
 #define TWCR_TWIE   0                 /* TWI Interrupt Enable */
 #define TWCR_TWEN   2                 /* TWI Enable  */
@@ -14,13 +14,13 @@
 #define TWCR_TWEA   6                 /* TWI Enable Acknowledge */
 #define TWCR_TWINT  7                 /* TWI Interrupt Flag */
 
-#define TWSR  *((volatile u8*) 0x21)  /*TWI Status Register*/
+#define TWSR  *((volatile uint8_t*) 0x21)  /*TWI Status Register*/
 #define TWSR_TWPS0   0
 #define TWSR_TWPS1   1
 
-#define TWDR  *((volatile u8*) 0x23)  /*TWI Data Register*/
+#define TWDR  *((volatile uint8_t*) 0x23)  /*TWI Data Register*/
 
-#define TWAR  *((volatile u8*) 0x22)  /*TWI (slave) Address Register*/
+#define TWAR  *((volatile uint8_t*) 0x22)  /*TWI (slave) Address Register*/
 #define TWAR_TWGCE 0
 
 #endif /* _TWI_REGISTER_H_ */

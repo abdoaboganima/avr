@@ -39,7 +39,7 @@ void SPI_initSlave(void)
   
 }
 
-u8 SPI_transceive(u8 data)
+uint8_t SPI_transceive(uint8_t data)
 {
   SPDR=data;
 

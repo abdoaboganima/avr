@@ -51,9 +51,9 @@
  * @param Port 
  * @param Pin 
  * @param Direction 
- * @return u8 
+ * @return uint8_t 
  */
-u8 DIO_SetPinDirection(u8 Port, u8 Pin, u8 Direction);
+uint8_t DIO_SetPinDirection(uint8_t Port, uint8_t Pin, uint8_t Direction);
 
 /**
  * @brief Sets the whole port direction wether it's input or output
@@ -63,9 +63,9 @@ u8 DIO_SetPinDirection(u8 Port, u8 Pin, u8 Direction);
  * @endcode
  * @param Port 
  * @param Direction 
- * @return u8 
+ * @return uint8_t 
  */
-u8 DIO_SetPortDirection(u8 Port, u8 Direction);
+uint8_t DIO_SetPortDirection(uint8_t Port, uint8_t Direction);
 
 /**
  * @brief Sets a value for a specific pin from a specific port
@@ -76,9 +76,9 @@ u8 DIO_SetPortDirection(u8 Port, u8 Direction);
  * @param Port 
  * @param Pin 
  * @param Value 
- * @return u8 
+ * @return uint8_t 
  */
-u8 DIO_SetPinValue(u8 Port, u8 Pin, u8 Value);
+uint8_t DIO_SetPinValue(uint8_t Port, uint8_t Pin, uint8_t Value);
 
 /**
  * @brief Sets the whole port to a specific value
@@ -88,23 +88,23 @@ u8 DIO_SetPinValue(u8 Port, u8 Pin, u8 Value);
  * @endcode
  * @param Port 
  * @param Value 
- * @return u8 
+ * @return uint8_t 
  */
-u8 DIO_SetPortValue(u8 Port, u8 Value);
+uint8_t DIO_SetPortValue(uint8_t Port, uint8_t Value);
 
 /**
  * @brief Gets a specific pin value from a specific port and assign that value
- * memory location addressed by pu8Value
+ * memory location addressed by puint8_tValue
  * @code
  * //This will set the ptrto8 to be the value oc the PIN3 in the PORTD
- * DIO_GetPinValue(DIO_PORTD, DIO_PIN3, ptrtou8)
+ * DIO_GetPinValue(DIO_PORTD, DIO_PIN3, ptrtouint8_t)
  * @endcode
  * @param Port 
  * @param Pin 
- * @param pu8Value 
- * @return u8 
+ * @param puint8_tValue 
+ * @return uint8_t 
  */
-u8 DIO_GetPinValue(u8 Port, u8 Pin, u8 *pu8Value);
+uint8_t DIO_GetPinValue(uint8_t Port, uint8_t Pin, uint8_t *puint8_tValue);
 
 #endif /* _DIO_INTERFACE_H_ */
 

@@ -12,7 +12,7 @@
 
 
 
-static inline void setPrescaler(u8 timer, u8 prescaler)
+static inline void setPrescaler(uint8_t timer, uint8_t prescaler)
 {
   /*NOTE : prescaler is a 3-bit value*/
   if(timer==TIMER0){
@@ -33,13 +33,13 @@ void TIMER1_init(void)
   setPrescaler(TIMER1, DIVIDED_BY_8);
 }
 
-void TIMER1_setTimerValue(const u16 timer1Value)
+void TIMER1_setTimerValue(const uint16_t timer1Value)
 {
   TCNT1=timer1Value;
 }
 
 /*
-u16 TIMER1_readTimerValue(void)
+uint16_t TIMER1_readTimerValue(void)
 {
   return TCNT1;
 }
@@ -60,16 +60,16 @@ void TIMER1_init_fastPWM(void)
   setPrescaler(TIMER1, DIVIDED_BY_8); 
 }
 
-void TIMER1_setICR(u16 inputCaptureValue)
+void TIMER1_setICR(uint16_t inputCaptureValue)
 {
   ICR1=inputCaptureValue;
  
 }
-void TIMER1_setChannelAComapareMatchValue(u16 channelACompareMatchValue)
+void TIMER1_setChannelAComapareMatchValue(uint16_t channelACompareMatchValue)
 {
   OCR1A=channelACompareMatchValue;
 }
-void TIMER1_setChannelBComapareMatchValue(u16 channelBCompareMatchValue)
+void TIMER1_setChannelBComapareMatchValue(uint16_t channelBCompareMatchValue)
 {
   OCR1B=channelBCompareMatchValue;
 }
@@ -90,7 +90,7 @@ void TIMER0_init_fastPWM(void)
 
 }
 
-void TIMER0_setCompareMatchValue(u8 value)
+void TIMER0_setCompareMatchValue(uint8_t value)
 {
   OCR0=value;
 }
@@ -126,7 +126,7 @@ void ICU_init(void)
   ICU_enableInterrupt();
 }
 
-void ICU_setTriggerEdge(u8 edge)
+void ICU_setTriggerEdge(uint8_t edge)
 {
   if(edge==ICU_RISING_EDGE)
     SET_BIT(TCCR1B, TCCR1B_ICES1);
@@ -148,7 +148,7 @@ void ICU_disableInterrupt(void)
 
  */
   /*
-u16 ICU_readInputCapture(void)
+uint16_t ICU_readInputCapture(void)
 {
   return ICR1;
 }

@@ -16,7 +16,7 @@ void WDT_enable()
   SET_BIT(WDTCR, WDTCR_WDE);
 }
 
-void WDT_sleep(u8 prescaler)
+void WDT_sleep(uint8_t prescaler)
 {
 WDTCR &=0b11111000;
 WDTCR |=prescaler;

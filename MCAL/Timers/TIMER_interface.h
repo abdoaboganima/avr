@@ -15,7 +15,7 @@
 
 void TIMER0_init(void);
 void TIMER0_init_fastPWM(void);
-void TIMER0_setCompareMatchValue(u8 value);
+void TIMER0_setCompareMatchValue(uint8_t value);
 void TIMER0_setCallBack(void (*callBackFunc)(void));
 
 
@@ -23,19 +23,19 @@ void TIMER0_setCallBack(void (*callBackFunc)(void));
 void TIMER1_init(void);
 void TIMER1_init_fastPWM(void);
 
-void TIMER1_setICR(u16 inputCaptureValue);
+void TIMER1_setICR(uint16_t inputCaptureValue);
 
-void TIMER1_setChannelAComapareMatchValue(u16 channelACompareMatchValue);
-void TIMER1_setChannelBComapareMatchValue(u16 channelBCompareMatchValue);
+void TIMER1_setChannelAComapareMatchValue(uint16_t channelACompareMatchValue);
+void TIMER1_setChannelBComapareMatchValue(uint16_t channelBCompareMatchValue);
 
-void TIMER1_setTimerValue(const u16 timer1Value);
-//u16 TIMER1_readTimerValue(void);
+void TIMER1_setTimerValue(const uint16_t timer1Value);
+//uint16_t TIMER1_readTimerValue(void);
 
 
 void ICU_init(void);
-void ICU_setTriggerEdge(u8 edge);
+void ICU_setTriggerEdge(uint8_t edge);
 //void ICU_enableInterrupt(void);
 //void ICU_disableInterrupt(void);
-//u16 ICU_readInputCapture(void);
+//uint16_t ICU_readInputCapture(void);
 void ICU_setCallBack(void (*callBackFunc)(void));
 #endif /* _TIMER_INTERFACE_H_ */

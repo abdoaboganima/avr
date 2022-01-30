@@ -14,13 +14,14 @@
  
 #ifndef _EEPROM_INTERFACE_H_
 #define _EEPROM_INTERFACE_H_
+#include "../../LIB/STD_TYPES.h"
  /**
  * @brief Send a byte of data to the EEPROM
  * 
  * @param data 
  * @param address 
  */
-void EEPROM_sendByte(u8 data, u16 address);
+void EEPROM_sendByte(uint8_t data, uint16_t address);
 
  /**
  * @brief Read a byte of data from the EEPROM, the byte will be stored 
@@ -29,7 +30,7 @@ void EEPROM_sendByte(u8 data, u16 address);
  * @param var 
  * @param address 
  */
-void EEPROM_readByte(u8 *var, u16 address);
+void EEPROM_readByte(uint8_t *var, uint16_t address);
 
 #endif /* _EEPROM_INTERFACE_H_ */
 /*@}@}*/

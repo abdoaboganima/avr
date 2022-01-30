@@ -1,4 +1,4 @@
-f/**
+/**
  * @file ADC_interface.h
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
  * @brief Contains the prototypes for some ADC functions 
@@ -15,7 +15,7 @@ f/**
  */ 
 #ifndef _ADC_INTERFACE_H_
 #define _ADC_INTERFACE_H_
-
+#include "../../LIB/STD_TYPES.h"
 /**
  * @brief Initialize the ADC peripheral
  * 
@@ -29,7 +29,7 @@ void ADC_init(void);
  * @param channel 
  * @param reading 
  */
-void ADC_StartSynchConversion(u8 channel, u16 *reading);
+void ADC_StartSynchConversion(uint8_t channel, uint16_t *reading);
 
 /**
  * @brief Start Asynchronous conversion from a specific channel, the value of the conversion is
@@ -40,7 +40,7 @@ void ADC_StartSynchConversion(u8 channel, u16 *reading);
  * @param reading 
  * @param callBackFunction 
  */
-void ADC_StartAsynchConversion(u8 channel, u16 *reading, void (*callBackFunction)(void));
+void ADC_StartAsynchConversion(uint8_t channel, uint16_t *reading, void (*callBackFunction)(void));
 
 /**
  * @addtogroup ADC_PRESCALERS

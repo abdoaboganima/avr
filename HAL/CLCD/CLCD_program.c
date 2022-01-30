@@ -20,7 +20,7 @@ static inline void setEnableForSomeTime()
   _delay_ms(10);
 }
 
-static inline void CLCD_SendCommand(const u8 Command)
+static inline void CLCD_SendCommand(const uint8_t Command)
 {
   DIO_SetPortValue(CLCD_DATA_PORT, Command);
   
@@ -37,7 +37,7 @@ static inline void CLCD_SendCommand(const u8 Command)
   setEnableForSomeTime();
 #endif
 }
-static inline void CLCD_SendData(const u8 Data)
+static inline void CLCD_SendData(const uint8_t Data)
 {
   
   DIO_SetPortValue(CLCD_DATA_PORT, Data);
@@ -105,15 +105,15 @@ void CLCD_Init(void)
 
 void CLCD_SendString(const char *string)
 {
-  u8 i=0;
+  uint8_t i=0;
   while(string[i]!='\0')
     CLCD_SendData(string[i++]);
     
 }
 
-void CLCD_GoTOXY(const u8 XPos, const u8 YPos)
+void CLCD_GoTOXY(const uint8_t XPos, const uint8_t YPos)
 {
-  u8 localAddress=0;
+  uint8_t localAddress=0;
   if(XPos==0){
     /* location is in the first line */
     localAddress=YPos;
@@ -126,7 +126,7 @@ void CLCD_GoTOXY(const u8 XPos, const u8 YPos)
   CLCD_SendCommand(0x80|localAddress);
 }
  
-void CLCD_SendSpecialChar(const u8 *charArray, const u8 charIndex, const u8 XPos, const u8 YPos)
+void CLCD_SendSpecialChar(const uint8_t *charArray, const uint8_t charIndex, const uint8_t XPos, const uint8_t YPos)
 {
   /* Command for writing on the CGRAM*/
   CLCD_SendCommand(charIndex*8 | 0x40);
@@ -135,15 +135,15 @@ void CLCD_SendSpecialChar(const u8 *charArray, const u8 charIndex, const u8 XPos
    * The Data now is going to be sent in the CGRAM 
    *  we specified that in the previous command
    */
-  for(u8 i=0; i<8; i++)
+  for(uint8_t i=0; i<8; i++)
     CLCD_SendData(charArray[i]);
   CLCD_GoTOXY(XPos, YPos);//This Sets the DDRAM address
   CLCD_SendData(charIndex);
 }
-char *utoa(u32 value, u8 base)
+char *utoa(uint32_t value, uint8_t base)
 {
   static char buff[32]={0};
-  u8 i=30;
+  uint8_t i=30;
   const char *literals="0123456789abcdef";
   for(; value !=0 ; value/=base)
     buff[i--]=literals[value%base];

@@ -8,9 +8,9 @@
 #ifndef _USART_REGISTER_H_
 #define _USART_REGISTER_H_
 
-#define  UDR             *((volatile u8*) 0x2c)
+#define  UDR             *((volatile uint8_t*) 0x2c)
 
-#define  UCSRA           *((volatile u8*) 0x2b)
+#define  UCSRA           *((volatile uint8_t*) 0x2b)
 
 #define  UCSRA_MPCM  0   
 #define  UCSRA_U2X   1
@@ -22,7 +22,7 @@
 #define  UCSRA_RXC   7
 
 
-#define  UCSRB           *((volatile u8*) 0x2a)
+#define  UCSRB           *((volatile uint8_t*) 0x2a)
 
 #define  UCSRB_TXB8   0
 #define  UCSRB_RXB8   1
@@ -34,7 +34,7 @@
 #define  UCSRB_RXCIE  7
 
 
-#define  UCSRC           *((volatile u8*) 0x40)
+#define  UCSRC           *((volatile uint8_t*) 0x40)
 
 #define  UCSRC_UCPOL  0
 #define  UCSRC_UCSZ0  1
@@ -45,14 +45,14 @@
 #define  UCSRC_UMSEL  6
 #define  UCSRC_URSEL  7
 
-#define  UBRRH           *((volatile u8*) 0x40)
-#define  UBRRL           *((volatile u8*) 0x29)
+#define  UBRRH           *((volatile uint8_t*) 0x40)
+#define  UBRRL           *((volatile uint8_t*) 0x29)
 
-/* #define             *((volatile u8*) ) */
-/* #define             *((volatile u8*) ) */
-/* #define             *((volatile u8*) ) */
-/* #define             *((volatile u8*) ) */
-/* #define             *((volatile u8*) ) */
-/* #define             *((volatile u8*) ) */
+/* #define             *((volatile uint8_t*) ) */
+/* #define             *((volatile uint8_t*) ) */
+/* #define             *((volatile uint8_t*) ) */
+/* #define             *((volatile uint8_t*) ) */
+/* #define             *((volatile uint8_t*) ) */
+/* #define             *((volatile uint8_t*) ) */
 
 #endif /* _USART_REGISTER_H_ */
