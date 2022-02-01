@@ -18,30 +18,31 @@
 
  /**
  * @brief Initialize the USART peripheral
- * 
  */
 void USART_init(void);
 
  /**
  * @brief Receive data
- * 
  * @return uint8_t 
  */
 uint8_t USART_receive(void);
 
  /**
  * @brief Send `data`
- * 
  * @param data 
  */
-void USART_send(uint8_t data);
+void USART_send(const uint8_t data);
 
  /**
  * @brief Send stream of data
- * 
  * @param stream 
  */
-void USART_sendStream(char *stream);
+void USART_sendStream(const char *stream);
+
+ /**
+ * @brief Diasbling the Receiver
+ */
+void USART_disableReceiver(void);
 
 #endif /* _USART_INTERFACE_H_ */
 

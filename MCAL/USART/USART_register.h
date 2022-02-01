@@ -10,6 +10,9 @@
 
 #define  UDR             *((volatile uint8_t*) 0x2c)
 
+ /**
+ * @brief USART Control and Status Register A
+ */
 #define  UCSRA           *((volatile uint8_t*) 0x2b)
 
 #define  UCSRA_MPCM  0   
@@ -17,9 +20,15 @@
 #define  UCSRA_PE    2
 #define  UCSRA_DOR   3
 #define  UCSRA_FE    4
+
+/** @brief USART Data Register Empty */
 #define  UCSRA_UDRE  5 
+
+/** @brief USART Transmit Complete */
 #define  UCSRA_TXC   6
-#define  UCSRA_RXC   7
+
+/** @brief USART Receive complete */
+#define  UCSRA_RXC   7   
 
 
 #define  UCSRB           *((volatile uint8_t*) 0x2a)
@@ -45,14 +54,14 @@
 #define  UCSRC_UMSEL  6
 #define  UCSRC_URSEL  7
 
+ /**
+ * @brief USART Baud Rate Register (Higher Byte)
+ * @note The `UBRRH` register share the same I/O memory location as the `UCSRC` register 
+ */
 #define  UBRRH           *((volatile uint8_t*) 0x40)
+ /**
+ * @brief USART Baud Rate Register (Lower Byte)
+ */
 #define  UBRRL           *((volatile uint8_t*) 0x29)
-
-/* #define             *((volatile uint8_t*) ) */
-/* #define             *((volatile uint8_t*) ) */
-/* #define             *((volatile uint8_t*) ) */
-/* #define             *((volatile uint8_t*) ) */
-/* #define             *((volatile uint8_t*) ) */
-/* #define             *((volatile uint8_t*) ) */
 
 #endif /* _USART_REGISTER_H_ */
