@@ -22,11 +22,11 @@ TWI_errorStatus TWI_sendStartCondition(void);
 TWI_errorStatus TWI_sendRepeatedStartCondition(void);
 void TWI_sendStopCondition(void);
 
-TWI_errorStatus TWI_sendSlaveAddressWithWrite(uint8_t slaveAddress);
-TWI_errorStatus TWI_sendSlaveAddressWithRead(uint8_t slaveAddress);
+TWI_errorStatus TWI_sendSlaveAddressWithWrite(const uint8_t slaveAddress);
+TWI_errorStatus TWI_sendSlaveAddressWithRead(const uint8_t slaveAddress);
 
-TWI_errorStatus TWI_masterWriteDataByte(uint8_t data);
-TWI_errorStatus TWI_masterReadDataByte(uint8_t *dataLocation);
+TWI_errorStatus TWI_masterWriteDataByte(const uint8_t data);
+TWI_errorStatus TWI_masterReadDataByte(uint8_t * const dataLocation);
 
 
 

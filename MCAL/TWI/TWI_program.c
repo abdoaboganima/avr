@@ -57,7 +57,7 @@ TWI_errorStatus TWI_sendRepeatedStartCondition(void)
   return NoError;
 }
 
-TWI_errorStatus TWI_sendSlaveAddressWithWrite(uint8_t slaveAddress)
+TWI_errorStatus TWI_sendSlaveAddressWithWrite(const uint8_t slaveAddress)
 {
   /*Set the slave address with the 7 MSB in the data register*/
   TWDR= (slaveAddress<<1); /*The masking is made to make the first bit 0 for write request*/
@@ -71,7 +71,7 @@ TWI_errorStatus TWI_sendSlaveAddressWithWrite(uint8_t slaveAddress)
   return NoError;  
 }
 
-TWI_errorStatus TWI_sendSlaveAddressWithRead(uint8_t slaveAddress)
+TWI_errorStatus TWI_sendSlaveAddressWithRead(const uint8_t slaveAddress)
 {
   /*Set the slave address with the 7 MSB in the data register*/
   TWDR= (slaveAddress<<1)|1; /*The masking is made to make the first bit 1 for read request*/
@@ -85,7 +85,7 @@ TWI_errorStatus TWI_sendSlaveAddressWithRead(uint8_t slaveAddress)
   
 }
 
-TWI_errorStatus TWI_masterWriteDataByte(uint8_t data)
+TWI_errorStatus TWI_masterWriteDataByte(const uint8_t data)
 {
   TWDR=data;
   
@@ -96,7 +96,7 @@ TWI_errorStatus TWI_masterWriteDataByte(uint8_t data)
 
   return NoError;
 }
-TWI_errorStatus TWI_masterReadDataByte(uint8_t *dataLocation)
+TWI_errorStatus TWI_masterReadDataByte(uint8_t * const dataLocation)
 {
   /* Make master generate acknowledge bit after receiving the data*/
   SET_BIT(TWCR, TWCR_TWEA);
