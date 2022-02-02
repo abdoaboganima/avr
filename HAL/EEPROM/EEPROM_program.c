@@ -2,7 +2,7 @@
 #include "EEPROM_config.h"
 #include "../../MCAL/TWI/TWI_interface.h"
 #include "../../LIB/STD_TYPES.h"
-
+#include <util/delay.h>
 /*
 Suppos you would like to access memory which address is : X9X8X7X6X5X4X3X2X1X0
 So in order to access that location you have to through the following address in the I^{2}C Bus
@@ -24,7 +24,7 @@ void EEPROM_sendByte(const uint8_t data, const uint16_t address)
   TWI_masterWriteDataByte( (uint8_t) address);
   TWI_masterWriteDataByte(data);
   TWI_sendStopCondition();
-  
+  _delay_ms(50);
 }
 
 void EEPROM_readByte(uint8_t * const var, const uint16_t address)

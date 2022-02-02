@@ -21,7 +21,7 @@
  * @param data 
  * @param address 
  */
-void EEPROM_sendByte(const uint8_t data,const uint16_t address);
+void EEPROM_sendByte(const uint8_t data, const uint16_t address);
 
  /**
  * @brief Read a byte of data from the EEPROM, the byte will be stored 

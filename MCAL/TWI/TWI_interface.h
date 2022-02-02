@@ -15,7 +15,7 @@ typedef enum{
 
 
 void TWI_initMaster(void);
-void TWI_initSlave(uint8_t slaveAddress);
+void TWI_initSlave(const uint8_t slaveAddress);
 
 
 TWI_errorStatus TWI_sendStartCondition(void);
