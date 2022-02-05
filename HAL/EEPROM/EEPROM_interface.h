@@ -21,11 +21,11 @@
  * @param data 
  * @param address 
  */
-void EEPROM_sendByte(const uint8_t data, const uint16_t address);
+void EEPROM_writeByte(const uint8_t data, const uint16_t address);
 
  /**
  * @brief Read a byte of data from the EEPROM, the byte will be stored 
- * in the memory location addressed by var.
+ * in the memory location addressed by `var`.
  * @param var 
  * @param address 
  */
@@ -42,7 +42,7 @@ void EEPROM_readByte(uint8_t * const var, const uint16_t address);
  * @code EEPROM_sendSequence("CoolStuff", 10, 9);
  * @endcode 
  */
-void EEPROM_sendSequence(uint8_t * const sequence, const uint16_t firstAddress, const uint16_t sequenceSize);
+void EEPROM_writeSequence(uint8_t * const sequence, const uint16_t firstAddress, const uint16_t sequenceSize);
 
  /**
  * @brief Read sequence of data from the EEPROM and store them in a memory location addressed by `sequence`

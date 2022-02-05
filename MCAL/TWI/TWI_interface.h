@@ -25,8 +25,8 @@ void TWI_sendStopCondition(void);
 TWI_errorStatus TWI_sendSlaveAddressWithWrite(const uint8_t slaveAddress);
 TWI_errorStatus TWI_sendSlaveAddressWithRead(const uint8_t slaveAddress);
 
-TWI_errorStatus TWI_masterWriteDataByte(const uint8_t data);
-TWI_errorStatus TWI_masterReadDataByte(uint8_t * const dataLocation);
+TWI_errorStatus TWI_masterWrite(const uint8_t data);
+TWI_errorStatus TWI_masterRead(uint8_t * const dataLocation, const uint16_t quantity);
 
 
 
