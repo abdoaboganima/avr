@@ -93,16 +93,18 @@ TWI_errorStatus TWI_masterWrite(const uint8_t data)
 }
 TWI_errorStatus TWI_masterRead(uint8_t * const dataLocation, const uint16_t quantity)
 {
-  if(quantity==1)
+  if(quantity==1){
     TWCR=(1<<TWCR_TWINT)|(1<<TWCR_TWEN);
-  else
-    TWCR=(1<<TWCR_TWINT)|(1<<TWCR_TWEN)|(1<<TWCR_TWEA);;
-
-  while (GET_BIT(TWCR, TWCR_TWINT)==0);   
- 
-  if(STATE!=MASTER_RECEIVED_DATA_AND_ACK_SENT)  return MasterReadByteError;
-
-  *dataLocation=TWDR;
+    while (GET_BIT(TWCR, TWCR_TWINT)==0);   
+    *dataLocation=TWDR;
+    if(STATE!=MASTER_RECEIVED_DATA_AND_NACK_SENT) return MasterReadByteError;
+  }
+  else{
+    TWCR=(1<<TWCR_TWINT)|(1<<TWCR_TWEN)|(1<<TWCR_TWEA);
+    while (GET_BIT(TWCR, TWCR_TWINT)==0);   
+    *dataLocation=TWDR;
+    if(STATE!=MASTER_RECEIVED_DATA_AND_ACK_SENT)  return MasterReadByteError;
+  }
   
   return NoError;
 }
