@@ -2,8 +2,9 @@
  * @file USART_program.c
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
  * @brief  The implementations of the USART functions
- * @version 0.1
+ * @version 0.2
  * @copyright Copyright (c) 2022
+ * @todo Implement the functions to work with the stdio.h
  */
 #include "../../LIB/STD_TYPES.h"
 #include "../../LIB/BIT_MATH.h"
@@ -62,9 +63,8 @@ void USART_sendWithInterruptDriven(const uint8_t data, void (*transmissionComple
 
 void USART_sendStream(const char *stream)
 {
-  uint8_t i=0;
-  while(stream[i]!=0)
-    USART_send(stream[i++]);
+  while(*stream)
+    USART_send(*stream++);
 }
 
 void USART_disableReceiver(void)
