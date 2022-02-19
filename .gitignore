@@ -1,2 +1,10 @@
 docs/
 .vscode/
+*.map
+*.elf
+*.o
+*.hex
+*.i
+*.asm
+*.d
+*.lss
