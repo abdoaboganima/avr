@@ -1,10 +1,13 @@
- /**
+/**
  * @file USART_interface.h
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
  * @brief  The user interface of the USART 
- * @version 0.1
+ * @version 0.2
  * @copyright Copyright (c) 2022
  */
+
+
+
 /** @addtogroup MCAL_drivers
  * @{
  * @addtogroup USART_driver
@@ -13,9 +16,21 @@
 #ifndef _USART_INTERFACE_H_
 #define _USART_INTERFACE_H_
 #include "../../LIB/STD_TYPES.h"
+#include <stdio.h>
+
+
+/**
+ * @brief   Clears the Entire Terminal Screen  
+ * @return  None
+ * @note    This function clears the entire screen by sending two escape sequences
+ */
+#define USART_clear_screen() USART_sendStream("\033[H\033[J")
+
+
 
  /**
  * @brief Initialize the USART peripheral
+ * @note  This function clear the entire terminal screen
  */
 void USART_init(void);
 
@@ -59,9 +74,16 @@ void USART_sendWithInterruptDriven(const uint8_t data, void (*transmissionComple
 void USART_sendStream(const char *stream);
 
  /**
- * @brief Diasbling the Receiver
+ * @brief Disabling the Receiver
  */
 void USART_disableReceiver(void);
+
+/**
+ * @brief  Redirecting the USART stream to the `stdout`
+ * @return None
+ * @note   After invoking this function you can use `printf()` safely.
+ */
+void USART_redirect_stream_to_stdout(void);
 
 void __vector_13(void) __attribute__((signal));
 void __vector_15(void) __attribute__((signal));

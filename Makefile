@@ -27,7 +27,7 @@ OBJS	      	:= $(SOURCES:.c=.o) #For every .c file associate a .o (object)      
 PREPROCESSED	:= $(SOURCES:.c=.i) #For every .c file associate a .i (preprocessed) file
 ASSEMBLIES	:= $(SOURCES:.c=.s) #For every .c file associate a .s (Assembly)     file
 DEPENDENCIES	:= $(SOURCES:.c=.o.d)
-
+TESTSOBJS	:= $(TESTS:.c=.o)
 
 
 module_name	:=
@@ -49,6 +49,7 @@ all: $(EXEC).hex
 #`make build-all` for building all the executable files 
 .PHONY: build-all
 build-all:
+	make compile-all
 	$(foreach i, $(TESTS), make build EXEC=$(shell basename -s .c $(i)) MAINFUNC=$(i);)
 
 
@@ -67,7 +68,7 @@ hex:   		$(EXEC).hex
 
 #`make compile-all` for compiling all source files
 .PHONY: compile-all
-compile-all: 	$(OBJS)
+compile-all: 	$(OBJS) $(TESTSOBJS)
 
 
 
@@ -84,7 +85,7 @@ assemble-all:	$(ASSEMBLIES)
 
 
 
-#`make flash` to flash the hex file to the microcontroller
+#`make flash` to flash the hex file to the micro-controller
 .PHONY: flash
 flash: $(EXEC).hex
 	@echo Flashing to the $(MCU)..
@@ -113,7 +114,8 @@ $(EXEC).elf: $(OBJS)
 
 #`make x.o` generate an object file, x.o from source file, x.c,.
 %.o:%.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) -MMD -MP -MT$@ -MF$@.d $< -o $@
+	@echo Compiling ---------------------------------------- $@
+	@$(CC) -c $(CFLAGS) $(CPPFLAGS) -MMD -MP -MT$@ -MF$@.d $< -o $@
 
 
 
@@ -131,6 +133,7 @@ $(EXEC).elf: $(OBJS)
 
 #`make x.hex` generate an object file, x.hex from elf file, x.elf,.
 %.hex:%.elf
+	@echo Genrating hex file --------------------------------- $@
 	$(OBJCOPY) -j .text -j .data -O ihex $< $@
 
 
@@ -161,7 +164,7 @@ test:
 	@echo The Includes are:  $(INCLUDES)
 	@echo
 	@echo The objects  are:  $(OBJS)
-	@echo Test files are: $(TESTS)
+	@echo Test files are: $(TESTSOBJS)
 
 
 .PHONY: clean
