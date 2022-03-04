@@ -17,7 +17,7 @@ LD        	:= avr-ld		#Linker
 OBJCOPY   	:= avr-objcopy
 
 
-CFLAGS    := -std=c99 -Wall -Wextra -g -Os -fdata-sections -ffunction-sections -mmcu=$(MCU) -DF_CPU=$(F_CPU)
+CFLAGS    := -std=c99 -Wall -Wextra -g -Os -fdata-sections -ffunction-sections -fshort-enums -mmcu=$(MCU) -DF_CPU=$(F_CPU)
 CPPFLAGS  := $(INCLUDES:%=-I%)
 LDFLAGS   := -Xlinker --gc-sections -Xlinker -Map=$(EXEC).map -Xlinker --relax #-Xlinker --strip-all
 
@@ -60,11 +60,6 @@ build: 		$(EXEC).elf $(EXEC).lss $(EXEC).hex
 
 
 
-#`make hex`  for generating hex file only
-.PHONY: hex
-hex:   		$(EXEC).hex
-
-
 
 #`make compile-all` for compiling all source files
 .PHONY: compile-all
@@ -103,7 +98,7 @@ $(EXEC).lss: $(EXEC).elf
 
 
 #`make EXECUTABLENAME.elf` for generating the elf file
-$(EXEC).elf: $(OBJS)
+$(EXEC).elf: $(OBJS) $(MAINFUNC)
 	@echo Building Target: $@
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJS) $(MAINFUNC) -o $(EXEC).elf
 	avr-size -C $(EXEC).elf

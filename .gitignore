@@ -8,3 +8,11 @@ docs/
 *.asm
 *.d
 *.lss
+GPATH
+GRTAGS
+GTAGS
+
+
+TODO
+
+*.log
