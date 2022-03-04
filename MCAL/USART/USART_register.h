@@ -2,18 +2,20 @@
  * @file USART_register.h
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
  * @brief The IO memory mapped addresses of the USART
- * @version 0.1
+ * @version 0.12
  * @copyright Copyright (c) 2022
  */
 #ifndef _USART_REGISTER_H_
 #define _USART_REGISTER_H_
 
-#define  UDR             *((volatile uint8_t*) 0x2c)
+#define HW_REG8(x) *((volatile uint8_t*) x)
+
+#define  UDR             HW_REG8(0x2c)
 
  /**
  * @brief USART Control and Status Register A
  */
-#define  UCSRA           *((volatile uint8_t*) 0x2b)
+#define  UCSRA           HW_REG8(0x2b)
 
 #define  UCSRA_MPCM  0   
 #define  UCSRA_U2X   1
@@ -31,7 +33,7 @@
 #define  UCSRA_RXC   7   
 
 
-#define  UCSRB           *((volatile uint8_t*) 0x2a)
+#define  UCSRB           HW_REG8(0x2a)
 
 #define  UCSRB_TXB8   0
 #define  UCSRB_RXB8   1
@@ -43,7 +45,7 @@
 #define  UCSRB_RXCIE  7
 
 
-#define  UCSRC           *((volatile uint8_t*) 0x40)
+#define  UCSRC           HW_REG8(0x40)
 
 #define  UCSRC_UCPOL  0
 #define  UCSRC_UCSZ0  1
@@ -58,10 +60,10 @@
  * @brief USART Baud Rate Register (Higher Byte)
  * @note The `UBRRH` register share the same I/O memory location as the `UCSRC` register 
  */
-#define  UBRRH           *((volatile uint8_t*) 0x40)
+#define  UBRRH           HW_REG8(0x40)
  /**
  * @brief USART Baud Rate Register (Lower Byte)
  */
-#define  UBRRL           *((volatile uint8_t*) 0x29)
+#define  UBRRL           HW_REG8(0x29)
 
 #endif /* _USART_REGISTER_H_ */

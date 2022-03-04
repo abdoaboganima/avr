@@ -59,8 +59,8 @@ int main(void)
     USART_send(data);
 
     USART_sendStream("\n>Testing interrupt driven data transmission..");
-    USART_sendStream("\n>>>1- Sending `k` with led blinking after transmission complete: ");_delay_ms(1000);
-    USART_sendWithInterruptDriven('k', blink1);
+    USART_sendStream("\n>>>1- Sending `k` with led blinking after transmission complete: ");
+    USART_sendWithInterruptDriven('k', blink1); _delay_ms(1000);
     USART_sendStream("\n>>>2- Receiving a letter: ");
     data=USART_receiveWithInterruptDriven(blink2);
     USART_sendStream("\n      You entered: ");

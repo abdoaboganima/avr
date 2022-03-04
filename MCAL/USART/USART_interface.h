@@ -2,7 +2,7 @@
  * @file USART_interface.h
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
  * @brief  The user interface of the USART 
- * @version 0.2
+ * @version 0.3
  * @copyright Copyright (c) 2022
  */
 
@@ -32,19 +32,19 @@
  * @brief Initialize the USART peripheral
  * @note  This function clear the entire terminal screen
  */
-void USART_init(void);
+extern void USART_init(void);
 
  /**
  * @brief Receive data
  * @return uint8_t 
  */
-uint8_t USART_receive(void);
+extern uint8_t USART_receive(void);
 
  /**
  * @brief Send `data`
  * @param data 
  */
-void USART_send(const uint8_t data);
+extern void USART_send(const uint8_t data);
 
  /**
  * @brief Receive data and execute the interrupt service routine associated with
@@ -54,7 +54,7 @@ void USART_send(const uint8_t data);
  * executed in the receive complete data ISR
  * @return uint8_t 
  */
-uint8_t USART_receiveWithInterruptDriven(void (*receiveCompleteCallBack)(void));
+extern uint8_t USART_receiveWithInterruptDriven(void (*receiveCompleteCallBack)(void));
 
  /**
  * @brief Send data and execute the interrupt service routine associated with
@@ -64,29 +64,26 @@ uint8_t USART_receiveWithInterruptDriven(void (*receiveCompleteCallBack)(void));
  * @param data 
  * @param transmissionCompleteCallBack 
  */
-void USART_sendWithInterruptDriven(const uint8_t data, void (*transmissionCompleteCallBack)(void));
+extern void USART_sendWithInterruptDriven(const uint8_t data, void (*transmissionCompleteCallBack)(void));
 
 
  /**
  * @brief Send stream of data
  * @param stream 
  */
-void USART_sendStream(const char *stream);
+extern void USART_sendStream(const char *stream);
 
  /**
  * @brief Disabling the Receiver
  */
-void USART_disableReceiver(void);
+extern void USART_disableReceiver(void);
 
 /**
  * @brief  Redirecting the USART stream to the `stdout`
  * @return None
  * @note   After invoking this function you can use `printf()` safely.
  */
-void USART_redirect_stream_to_stdout(void);
-
-void __vector_13(void) __attribute__((signal));
-void __vector_15(void) __attribute__((signal));
+extern void USART_redirect_stream_to_stdout(void);
 
 
 #endif /* _USART_INTERFACE_H_ */

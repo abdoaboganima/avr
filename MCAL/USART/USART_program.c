@@ -2,7 +2,7 @@
  * @file      USART_program.c
  * @author    Abdulrahman Aboghanima (abdoaboganima@icloud.com)
  * @brief     The implementations of the USART functions
- * @version   0.2
+ * @version   0.3
  * @copyright Copyright (c) 2022
  * 
  */
@@ -20,13 +20,20 @@ static int USART_putchar(const char c, FILE *stream);
 static int USART_getchar(FILE *stream);
 
 
+
+extern void __vector_13(void) __attribute__((signal));  /* USART Rx Complete */
+extern void __vector_15(void) __attribute__((signal));  /* USART Tx Complete */
+
+
 static void (*receiveComplete)(void)=NULL;
 static void (*transmissionComplete)(void)=NULL;
+
+
 static FILE USART_stream=FDEV_SETUP_STREAM(USART_putchar, USART_getchar, _FDEV_SETUP_RW);
 
 
 
-void USART_init(void)
+extern void USART_init(void)
 {
   /*
     If you would like to write on the `UCSRC` the `URSEL` bit must be set, 
@@ -45,14 +52,14 @@ void USART_init(void)
 }
 
 
-void USART_send(const uint8_t data)
+extern void USART_send(const uint8_t data)
 {
   if(data=='\n') USART_send('\r');
   while(GET_BIT(UCSRA, UCSRA_UDRE)==0);     /* Wait until the USART Data register is Empty*/
   UDR=data;                                 /* Note: Writing on `UDR` clears the UDRE flag*/
 }
 
-uint8_t USART_receive(void)
+extern uint8_t USART_receive(void)
 {
   while(GET_BIT(UCSRA, UCSRA_RXC)==0);      /* Busy Waiting: Wait until the receiving is complete*/
   return UDR;                               /* Note: Reading `UDR` Clears the RXC flag*/
@@ -73,7 +80,7 @@ static int USART_getchar(FILE *stream)
 }
 
 
-uint8_t USART_receiveWithInterruptDriven(void (*receiveCompleteCallBack)(void))
+extern uint8_t USART_receiveWithInterruptDriven(void (*receiveCompleteCallBack)(void))
 {
   receiveComplete=receiveCompleteCallBack;  /* This will be called in the ISR of receive complete*/
   SET_BIT(UCSRB, UCSRB_RXCIE);              /* Receive Complete Interrupt Enable */
@@ -81,37 +88,41 @@ uint8_t USART_receiveWithInterruptDriven(void (*receiveCompleteCallBack)(void))
   return UDR;
 }
 
-void USART_sendWithInterruptDriven(const uint8_t data, void (*transmissionCompleteCallBack)(void))
+extern void USART_sendWithInterruptDriven(const uint8_t data, void (*transmissionCompleteCallBack)(void))
 {
   transmissionComplete=transmissionCompleteCallBack;
-  SET_BIT(UCSRB, UCSRB_TXCIE);             /* Tranmission Complete Interrupt Enable */
   while(GET_BIT(UCSRA, UCSRA_UDRE)==0);    /* Wait till the `UDR` is empty*/
+  SET_BIT(UCSRB, UCSRB_TXCIE);             /* Tranmission Complete Interrupt Enable */
   UDR=data;
 }
 
-void USART_sendStream(const char *stream)
+extern void USART_sendStream(const char *stream)
 {
   while(*stream)
     USART_send(*stream++);
 }
 
-void USART_disableReceiver(void)
+extern void USART_disableReceiver(void)
 {
   CLEAR_BIT(UCSRB, UCSRB_RXEN);
 }
 
-inline void USART_redirect_stream_to_stdout(void)
+
+extern inline void USART_redirect_stream_to_stdout(void)
 {
   stdout = &USART_stream;
 }
 
-void __vector_13(void)
+
+
+/* Interrupt service routines vectors */
+extern void __vector_13(void) 
 {
   receiveComplete();
   CLEAR_BIT(UCSRB, UCSRB_RXCIE);       /* Receive Complete Interrupt Disable */
 }
 
-void __vector_15(void)
+extern void __vector_15(void)
 {
   transmissionComplete();
   CLEAR_BIT(UCSRB, UCSRB_TXCIE);      /* Transmission Complete Interrupt Disable*/
