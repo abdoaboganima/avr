@@ -109,3 +109,24 @@ TWI_errorStatus TWI_masterRead(uint8_t * const dataLocation, const uint16_t quan
   return NoError;
 }
 
+extern uint8_t TWI_read_byte(const uint8_t device_address, const uint8_t data_location)
+{
+  uint8_t var;
+  TWI_sendStartCondition();
+  TWI_sendSlaveAddressWithWrite(device_address);
+  TWI_masterWrite(data_location);
+  TWI_sendRepeatedStartCondition();
+  TWI_sendSlaveAddressWithRead(device_address);
+  TWI_masterRead(&var, 1);
+  TWI_sendStopCondition();
+  return var;
+}
+
+extern void TWI_write_byte(const uint8_t device_address, const uint8_t data_location, const uint8_t data)
+{
+  TWI_sendStartCondition();
+  TWI_sendSlaveAddressWithWrite(device_address);
+  TWI_masterWrite(data_location);
+  TWI_masterWrite(data);
+  TWI_sendStopCondition();
+}

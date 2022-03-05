@@ -28,6 +28,8 @@ TWI_errorStatus TWI_sendSlaveAddressWithRead(const uint8_t slaveAddress);
 TWI_errorStatus TWI_masterWrite(const uint8_t data);
 TWI_errorStatus TWI_masterRead(uint8_t * const dataLocation, const uint16_t quantity);
 
+extern uint8_t TWI_read_byte(const uint8_t device_address, const uint8_t data_location);
+extern void TWI_write_byte(const uint8_t device_address, const uint8_t data_location, const uint8_t data);
 
 
 #endif /* _TWI_INTERFACE_H_ */
