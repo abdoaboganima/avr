@@ -19,19 +19,19 @@ OBJCOPY   	:= avr-objcopy
 
 CFLAGS    := -std=c99 -Wall -Wextra -g -Os -fdata-sections -ffunction-sections -fshort-enums -mmcu=$(MCU) -DF_CPU=$(F_CPU)
 CPPFLAGS  := $(INCLUDES:%=-I%)
-LDFLAGS   := -Xlinker --gc-sections -Xlinker -Map=$(EXEC).map -Xlinker --relax #-Xlinker --strip-all
+LDFLAGS   := -Xlinker --gc-sections -Xlinker -Map=$(EXEC).map -Xlinker --relax -Wl,-u,vfprintf -lprintf_flt -lm #-Xlinker --strip-all
 
 
 
 OBJS	      	:= $(SOURCES:.c=.o) #For every .c file associate a .o (object)       file
 PREPROCESSED	:= $(SOURCES:.c=.i) #For every .c file associate a .i (preprocessed) file
 ASSEMBLIES	:= $(SOURCES:.c=.s) #For every .c file associate a .s (Assembly)     file
-DEPENDENCIES	:= $(SOURCES:.c=.o.d)
+DEPENDENCIES	:= $(SOURCES:.c=.o.d) $(TESTS:.c=.o.d)
 TESTSOBJS	:= $(TESTS:.c=.o)
 
 
 module_name	:=
-EXEC		:= out
+EXEC		:= $(EXEC)
 MAINFUNC	:=
 
 
@@ -101,7 +101,7 @@ $(EXEC).lss: $(EXEC).elf
 $(EXEC).elf: $(OBJS) $(MAINFUNC)
 	@echo Building Target: $@
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJS) $(MAINFUNC) -o $(EXEC).elf
-	avr-size -C $(EXEC).elf
+	@avr-size -C $(EXEC).elf
 
 
 
@@ -129,7 +129,7 @@ $(EXEC).elf: $(OBJS) $(MAINFUNC)
 #`make x.hex` generate an object file, x.hex from elf file, x.elf,.
 %.hex:%.elf
 	@echo Genrating hex file --------------------------------- $@
-	$(OBJCOPY) -j .text -j .data -O ihex $< $@
+	@$(OBJCOPY) -j .text -j .data -O ihex $< $@
 
 
 #`make docs` for generating documentation
@@ -147,22 +147,23 @@ module:
 	@mkdir -p $(shell dirname ${module_name}) 
 	@touch $(module_name)_config.h \
 	$(module_name)_interface.h \
-	$(module_name)_programg.c \
+	$(module_name)_program.c \
 	$(module_name)_register.h \
 	$(module_name)_private.h
 
 
 .PHONY: test
 test:
-	@echo The Sources  are:  $(SOURCES)
+	@echo The Sources  are :  $(SOURCES)
 	@echo
-	@echo The Includes are:  $(INCLUDES)
+	@echo The Includes are :  $(INCLUDES)
 	@echo
-	@echo The objects  are:  $(OBJS)
-	@echo Test files are: $(TESTSOBJS)
+	@echo The objects  are :  $(OBJS)
+	@echo Test files   are :  $(TESTSOBJS)
 
 
 .PHONY: clean
 clean:
-	rm -rf $(OBJS) $(PREPROCESSED) $(ASSEMBLIES) $(DEPENDENCIES) \
+	@rm -rf $(OBJS) $(PREPROCESSED) $(ASSEMBLIES) $(DEPENDENCIES) $(TESTSOBJS) \
 	*.out *.map *.elf *.map *.hex *.s *.i *.d *.lss *.o *.obj
+	@echo CLEANED!
