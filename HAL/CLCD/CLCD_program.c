@@ -2,15 +2,16 @@
  * @file CLCD_program.c
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
  * @brief The implementations of the CLCD_drivers
- * @version 0.1
+ * @version 0.2
  * @copyright Copyright (c) 2022
  */
 #include "../../LIB/STD_TYPES.h"
 #include "../../LIB/BIT_MATH.h"
-#include "CLCD_interface.h"
-#include "CLCD_config.h" 
 #include "CLCD_private.h"
+#include "CLCD_config.h" 
+#include "CLCD_interface.h"
 #include <util/delay.h>
+
 static inline void setEnableForSomeTime()
 {
   DIO_SetPinValue(CLCD_CTRL_PORT, CLCD_EN_PIN, DIO_PIN_HIGH);
@@ -59,7 +60,7 @@ static inline void CLCD_SendData(const uint8_t Data)
 }
 void CLCD_Clear(void)
 {
-  CLCD_SendCommand(0b00000001);
+  CLCD_SendCommand(0b00000010);
 }
 void CLCD_Blink(void)
 {
@@ -105,31 +106,19 @@ void CLCD_Init(void)
 
 void CLCD_SendString(const char *string)
 {
-  uint8_t i=0;
-  while(string[i]!='\0')
-    CLCD_SendData(string[i++]);
-    
+  while(*string!='\0') CLCD_SendData(*string++);
 }
 
 void CLCD_GoTOXY(const uint8_t XPos, const uint8_t YPos)
 {
-  uint8_t localAddress=0;
-  if(XPos==0){
-    /* location is in the first line */
-    localAddress=YPos;
-  }
-  else if(XPos==1){
-    /* location is in the second line */
-    localAddress=YPos+0x40;
-  }
   /* Set bit number 7 for Setting DDRAM Address command then send the command */
-  CLCD_SendCommand(0x80|localAddress);
+  /* If the XPos==0, it's the first line, else it is the second*/
+  CLCD_SendCommand(0x80|( XPos ? YPos+0x40 : YPos));
 }
  
 void CLCD_SendSpecialChar(const uint8_t *charArray, const uint8_t charIndex, const uint8_t XPos, const uint8_t YPos)
 {
-  /* Command for writing on the CGRAM*/
-  CLCD_SendCommand(charIndex*8 | 0x40);
+  CLCD_SendCommand(charIndex*8 | 0x40); /* Command for writing on the CGRAM*/
 
   /*
    * The Data now is going to be sent in the CGRAM 
