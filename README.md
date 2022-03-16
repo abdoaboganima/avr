@@ -51,3 +51,11 @@ To build all the executables and flash the `MPU6050_test.hex`, just do as the fo
 ```
 $ make build-all && make all EXEC=MPU6050_test
 ```
+  
+# Other
+
+## Badges  
+![Lines of code](https://img.shields.io/tokei/lines/github.com/abdoaboganima/avr)
+![GitHub repo size](https://img.shields.io/github/repo-size/abdoaboganima/avr)
+![GitHub last commit](https://img.shields.io/github/last-commit/abdoaboganima/avr)
+
