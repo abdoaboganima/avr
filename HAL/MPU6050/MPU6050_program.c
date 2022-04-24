@@ -41,7 +41,7 @@ extern double MPU6050_read_accel_X(void)
 {
   uint8_t xout_l = TWI_read_byte(MPU6050_ADDRESS, ACCEL_XOUT_L);
   uint8_t xout_h = TWI_read_byte(MPU6050_ADDRESS, ACCEL_XOUT_H);
-  double   xout   = (xout_h<<8)|(xout_l);
+  double   xout   = ((xout_h<<8)|(xout_l)) - ACCEL_X_OFFSET;
   return xout*accel_scale; /*Acceleration in x (m/s^2)*/
 }
 
@@ -49,7 +49,7 @@ extern double MPU6050_read_accel_Y(void)
 {
   uint8_t yout_l = TWI_read_byte(MPU6050_ADDRESS, ACCEL_YOUT_L);
   uint8_t yout_h = TWI_read_byte(MPU6050_ADDRESS, ACCEL_YOUT_H);
-  double   yout   = ((yout_h<<8)|(yout_l));
+  double   yout   = ((yout_h<<8)|(yout_l)) - ACCEL_Y_OFFSET;
   return yout*accel_scale; /*Acceleration in y (m/s^2)*/
 }
 
@@ -57,7 +57,7 @@ extern double MPU6050_read_accel_Z(void)
 {
   uint8_t zout_l = TWI_read_byte(MPU6050_ADDRESS, ACCEL_ZOUT_L);
   uint8_t zout_h = TWI_read_byte(MPU6050_ADDRESS, ACCEL_ZOUT_H);
-  double   zout   = (double)((zout_h<<8)|(zout_l));
+  double   zout   = ((zout_h<<8)|(zout_l)) - ACCEL_Z_OFFSET;
   return zout*accel_scale;
     
 }
@@ -67,7 +67,7 @@ extern double MPU6050_read_gyro_X(void)
 {
   uint8_t xout_l = TWI_read_byte(MPU6050_ADDRESS, GYRO_XOUT_L);
   uint8_t xout_h = TWI_read_byte(MPU6050_ADDRESS, GYRO_XOUT_H);
-  double   xout   = (xout_h<<8)|(xout_l);
+  double   xout   = ((xout_h<<8)|(xout_l)) - GYRO_X_OFFSET;
   return xout/16.384;
 }
 
@@ -75,7 +75,7 @@ extern double MPU6050_read_gyro_Y(void)
 {
   uint8_t yout_l = TWI_read_byte(MPU6050_ADDRESS, GYRO_YOUT_L);
   uint8_t yout_h = TWI_read_byte(MPU6050_ADDRESS, GYRO_YOUT_H);
-  double   yout   = (yout_h<<8)|(yout_l);
+  double   yout   = ((yout_h<<8)|(yout_l)) - GYRO_Y_OFFSET;
   return yout/16.384;
 }
 
@@ -83,7 +83,7 @@ extern double MPU6050_read_gyro_Z(void)
 {
   uint8_t zout_l = TWI_read_byte(MPU6050_ADDRESS, GYRO_ZOUT_L);
   uint8_t zout_h = TWI_read_byte(MPU6050_ADDRESS, GYRO_ZOUT_H);
-  double   z_out  = (zout_h<<8)|(zout_l);
+  double   z_out  = ((zout_h<<8)|(zout_l)) - GYRO_Z_OFFSET;
   return z_out/16.384;
 }
 

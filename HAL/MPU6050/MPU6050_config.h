@@ -5,7 +5,7 @@
  * @date       Fri Mar  4 20:22:46 2022
  * @copyright  Copyright (c) 2022
  * @version    0.1
- *
+ * @compiler   avr-gcc
  */
 
 #ifndef _MPU6050_CONFIG_H_
@@ -35,4 +35,13 @@
 #define GYRO_RANGE  NEGATIVE_250_TO_POSITIVE_250
 
 
+#define ACCEL_X_OFFSET  220
+#define ACCEL_Y_OFFSET  76
+#define ACCEL_Z_OFFSET  -85
+#define GYRO_X_OFFSET   1788
+#define GYRO_Y_OFFSET   0
+#define GYRO_Z_OFFSET   0
+
 #endif /* _MPU6050_CONFIG_H_ */
+
+
