@@ -21,7 +21,7 @@ int main(void){
 				   {0x00, 0x00, 0x04, 0x11, 0x11, 0x11, 0x0E, 0x00}
   };
   
-  CLCD_Init();
+  CLCD_init();
 
   for(uint8_t i=0; i<7; i++)
     CLCD_SendSpecialChar(customChar[i], i, 0, 12-i);
@@ -31,11 +31,11 @@ int main(void){
 
   while(1){
 
-    CLCD_Init();
+    CLCD_init();
     CLCD_GoTOXY(0, 0);
     CLCD_SendString("Welcome to Repo");
     _delay_ms(100);
-    CLCD_Init();
+    CLCD_init();
     CLCD_GoTOXY(1, 1);
     CLCD_SendString("Welcome to Repo");
     _delay_ms(100);

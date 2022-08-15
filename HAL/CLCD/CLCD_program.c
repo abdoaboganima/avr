@@ -38,7 +38,7 @@ static inline void CLCD_SendCommand(const uint8_t Command)
   setEnableForSomeTime();
 #endif
 }
-static inline void CLCD_SendData(const uint8_t Data)
+extern void CLCD_SendData(const uint8_t Data)
 {
   
   DIO_SetPortValue(CLCD_DATA_PORT, Data);
@@ -66,7 +66,7 @@ void CLCD_Blink(void)
 {
   CLCD_SendCommand(0b00001111);
 }
-void CLCD_Init(void)
+void CLCD_init(void)
 {
   
   DIO_SetPortDirection(CLCD_DATA_PORT, DIO_PORT_OUTPUT);

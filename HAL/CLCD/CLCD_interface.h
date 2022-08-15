@@ -20,7 +20,7 @@
  *  @brief Initializes the Crystal LCD
  * @{
  */
-void CLCD_Init(void);
+void CLCD_init(void);
 /*@}*/
 
 /**
@@ -58,6 +58,9 @@ void CLCD_Clear(void);
  * @brief Blinks the curser of the LCD 
  */
 void CLCD_Blink(void);
+
+extern  void CLCD_SendData(const uint8_t Data);
+
 
 /**
  * @brief Converts unsigned value of base x to an ASCII character
