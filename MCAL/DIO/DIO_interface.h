@@ -1,11 +1,11 @@
-/*******************************************************
+/**
  *
  * @file   DIO_interface.h
  * @brief  Contains the macros and functions prototypes for DIO driver
  * @author Abdulrahman Aboghanima
  * @date   Wed Aug 18 20:02:44 2021
- *
- *******************************************************/
+ * @version 0.2 
+ */
 /** @addtogroup MCAL_drivers 
  * @{
  *  @addtogroup DIO_drivers 
@@ -105,6 +105,14 @@ uint8_t DIO_SetPortValue(uint8_t Port, uint8_t Value);
  * @return uint8_t 
  */
 uint8_t DIO_GetPinValue(uint8_t Port, uint8_t Pin, uint8_t *puint8_tValue);
+
+/**
+ * @brief Toggle a specific pin value
+ * @param Port 
+ * @param Pin
+ * @return uint8_t 
+ */
+uint8_t DIO_TogglePinValue(uint8_t Port, uint8_t Pin);
 
 #endif /* _DIO_INTERFACE_H_ */
 

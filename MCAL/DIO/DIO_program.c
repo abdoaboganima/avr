@@ -1,3 +1,14 @@
+/**
+ *
+ * @file       DIO_program.c
+ * @brief      Contains functions definitions of the `DIO` Module
+ * @author     Abdulrahman Aboghanima
+ * @date       Tue Aug 18 18:01:26 2021
+ * @copyright  Copyright (c) 2022
+ * @version    0.2
+ * 
+ */
+
 #include "../../LIB/STD_TYPES.h"
 #include "../../LIB/BIT_MATH.h"
 #include "DIO_interface.h"
@@ -79,6 +90,24 @@ uint8_t DIO_SetPinValue(uint8_t Port, uint8_t Pin, uint8_t Value)
   
   return Local_ErrorState;
 }
+
+uint8_t DIO_TogglePinValue(uint8_t Port, uint8_t Pin)
+{
+  uint8_t Local_ErrorState=0;
+
+  if(Pin<=DIO_PIN7){  
+    switch(Port){                             
+    case DIO_PORTA: TOGGLE_BIT(PORTA, Pin); break;
+    case DIO_PORTB: TOGGLE_BIT(PORTB, Pin); break;
+    case DIO_PORTC: TOGGLE_BIT(PORTC, Pin); break;
+    case DIO_PORTD: TOGGLE_BIT(PORTD, Pin); break;
+    default: Local_ErrorState=1; break;            
+    }
+  }
+  
+  return Local_ErrorState;
+}
+
 uint8_t DIO_SetPortValue(uint8_t Port, uint8_t Value)
 {
   uint8_t Local_ErrorState=0;
