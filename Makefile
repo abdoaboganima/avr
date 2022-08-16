@@ -100,7 +100,7 @@ $(EXEC).lss: $(EXEC).elf
 #`make EXECUTABLENAME.elf` for generating the elf file
 $(EXEC).elf: $(OBJS) $(MAINFUNC)
 	@echo Building Target: $@
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJS) $(MAINFUNC) -o $(EXEC).elf
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(MAINFUNC) -o $(EXEC).elf
 	@avr-size -C $(EXEC).elf
 
 
