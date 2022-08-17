@@ -9,7 +9,7 @@
 #ifndef _EXTI_CONFIG_H_
 #define _EXTI_CONFIG_H_
 
-/*INT0 Interrupt Sense Control*/
+/*INTx Interrupt Sense Control*/
 /*
   Options:
          1- FALLING_EDGE      
@@ -18,15 +18,19 @@
          4- ANY_LOGICAL_CHANGE   
 */
 #define INT0_ISC RISING_EDGE
+#define INT1_ISC LOW_LEVEL
+#define INT2_ISC FALLING_EDGE
 
 
-/*Peripheral interrupt enable*/
+/*Peripheral Interrupt Enable*/
 /*
   Options:
-         1- Enabled
-	 2- Disabled
+         1- ENABLED
+	 2- DISABLED
 */
 #define INT0_INITIAL_STATE ENABLED
+#define INT1_INITIAL_STATE ENABLED
+#define INT2_INITIAL_STATE ENABLED
 
 
 #endif /* _EXTI_CONFIG_H_ */
