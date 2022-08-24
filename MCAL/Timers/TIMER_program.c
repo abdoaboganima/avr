@@ -1,3 +1,14 @@
+/**
+ *
+ * @file       TIMER_program.c
+ * @brief      Contains functions definitions for the timer peripheral
+ * @author     Abdulrahman Aboghanima
+ * @date       Jan 31 21:47:12 2022
+ * @copyright  Copyright (c) 2022
+ * @version    0.2
+ * 
+ */
+
 #include "../../LIB/STD_TYPES.h"
 #include "../../LIB/BIT_MATH.h"
 #include "TIMER_interface.h"
@@ -6,115 +17,264 @@
 #include "TIMER_register.h"
 
 
-#define TIMER0 0
-#define TIMER1 1
-#define TIMER2 2
 
 
-
-static inline void setPrescaler(uint8_t timer, uint8_t prescaler)
+extern void TIMER_setPrescaler(const timer_id timer,  const uint8_t prescaler)
 {
-  /*NOTE : prescaler is a 3-bit value*/
-  if(timer==TIMER0){
+  switch (timer){
+  case timer0:
     TCCR0 &= PRESCALER_MASK;
     TCCR0 |= prescaler;
-  }
-  else if(timer==TIMER1){
+    break;
+
+  case timer1:
     TCCR1B &=PRESCALER_MASK;
     TCCR1B |=prescaler;
-    
+    break;
+
+  case timer2: break; /*TODO*/
+
   }
-    
 }
 
-void TIMER1_init(void)
-{
-  /*Set the prescaler*/
-  setPrescaler(TIMER1, DIVIDED_BY_8);
-}
 
-void TIMER1_setTimerValue(const uint16_t timer1Value)
-{
-  TCNT1=timer1Value;
-}
 
 /*
-uint16_t TIMER1_readTimerValue(void)
-{
-  return TCNT1;
-}
+  switch (timer){
+  case timer0:
+    break;
+  case timer1:
+    break;
+  case timer2:
+    break;
+
+  default: break;
+      
+  }
 */
-void TIMER1_init_fastPWM(void)
+
+extern void TIMER_setTimerValue(const timer_id timer, const uint16_t timerValue)
 {
-  /*Set fast PWM mode*/
-  SET_BIT(TCCR1A, TCCR1A_COM1A1);
-  CLEAR_BIT(TCCR1A, TCCR1A_COM1A0);
+  switch (timer){
+  case timer0:
+    TCNT0=timerValue;
+    break;
 
-  /*Set the waveform of the fas PWM*/
-  CLEAR_BIT(TCCR1A, TCCR1A_WGM10);
-  SET_BIT(TCCR1A, TCCR1A_WGM11);
-  SET_BIT(TCCR1B, TCCR1B_WGM12);
-  SET_BIT(TCCR1B, TCCR1B_WGM13);
+  case timer1:
+    TCNT1=timerValue;
+    break;
 
-  /*Set the prescaler*/
-  setPrescaler(TIMER1, DIVIDED_BY_8); 
+  case timer2:
+    TCNT2=timerValue;
+    break;
+  }
+  
 }
 
-void TIMER1_setICR(uint16_t inputCaptureValue)
+
+/* Q: If I used ICR1 as a top, the value of the timer will be compared with OCR1A.
+ *    But if I used the OCR1A/OCR1B as a top, 
+ *    should OC1A/OC1B cleared on compare match(top) and cleared at bottom?
+ * Ans:
+ *    Referring to the data sheet(page108), the compare match will be ignored
+ */
+void TIMER1_setICR(const uint16_t inputCaptureValue)
 {
   ICR1=inputCaptureValue;
  
 }
-void TIMER1_setChannelAComapareMatchValue(uint16_t channelACompareMatchValue)
+void TIMER1_setChannelAComapareMatchValue(const uint16_t channelACompareMatchValue)
 {
   OCR1A=channelACompareMatchValue;
 }
-void TIMER1_setChannelBComapareMatchValue(uint16_t channelBCompareMatchValue)
+void TIMER1_setChannelBComapareMatchValue(const uint16_t channelBCompareMatchValue)
 {
   OCR1B=channelBCompareMatchValue;
 }
-void TIMER0_init_fastPWM(void)
+
+void TIMER_setCompareMatchValue(const timer_id timer, const uint8_t value)
 {
-  /*Choose Fast PWM mode*/
- SET_BIT(TCCR0, TCCR0_WGM00);
- SET_BIT(TCCR0, TCCR0_WGM01);
- 
- /*Clear in Compare match Set on top*/
- CLEAR_BIT(TCCR0, TCCR0_COM00);
- SET_BIT(TCCR0, TCCR0_COM01);
+  switch (timer){
+  case timer0:
+    OCR0=value;
+    break;
 
- /*Setting the duty cycle to be 25%*/
- OCR0=64;
+  case timer2:
+    break;
 
- setPrescaler(TIMER0, DIVIDED_BY_8);
+  default: break;
+      
+  }
 
 }
 
-void TIMER0_setCompareMatchValue(uint8_t value)
+
+void CTC_mode(const timer_id timer)
 {
-  OCR0=value;
+  switch(timer){
+
+  case timer0:
+    CLEAR_BIT(TCCR0, TCCR0_WGM00);
+    SET_BIT(TCCR0, TCCR0_WGM01);
+    break;
+    
+  case timer1:
+    CLEAR_BIT(TCCR1A, TCCR1A_WGM10);
+    CLEAR_BIT(TCCR1A, TCCR1A_WGM11);
+    SET_BIT(TCCR1B, TCCR1B_WGM12);
+    CLEAR_BIT(TCCR1B, TCCR1B_WGM13);
+    break;
+    
+  case timer2:
+    CLEAR_BIT(TCCR2, TCCR2_WGM20);
+    SET_BIT(TCCR2, TCCR2_WGM21);
+    break;
+        
+  }
 }
 
- 
- 
-
-void TIMER0_init(void)
+void fast_PWM_mode(const timer_id timer)
 {
-  /*Choose CTC Mode*/
-  CLEAR_BIT(TCCR0, TCCR0_WGM00);
-  SET_BIT(TCCR0, TCCR0_WGM01);
+  switch (timer){
 
-  /*Output Compare Match interrupt Enable*/
-  SET_BIT(TIMSK, TIMSK_OCIE0);
+  case timer0:
+    SET_BIT(TCCR0, TCCR0_WGM00);
+    SET_BIT(TCCR0, TCCR0_WGM01);
+ 
+    /*Clear in Compare match Set at Bottom*/
+    CLEAR_BIT(TCCR0, TCCR0_COM00);
+    SET_BIT(TCCR0, TCCR0_COM01);
 
-  //OCR0=250;
+    break;
 
-  /*Prescaler 8*/
-  CLEAR_BIT(TCCR0, TCCR0_CS02);
-  SET_BIT(TCCR0, TCCR0_CS01);
-  CLEAR_BIT(TCCR0, TCCR0_CS00);
+
+  case timer1:
+
+    /*Set the waveform of the fast PWM, the ICR1 will be the TOP*/
+    CLEAR_BIT(TCCR1A, TCCR1A_WGM10);
+    SET_BIT(TCCR1A, TCCR1A_WGM11);
+    SET_BIT(TCCR1B, TCCR1B_WGM12);
+    SET_BIT(TCCR1B, TCCR1B_WGM13);
+
+    /*Compare output mode: Clear on Compare match, Set at Bottom*/
+    SET_BIT(TCCR1A, TCCR1A_COM1A1);
+    CLEAR_BIT(TCCR1A, TCCR1A_COM1A0);
+
+    break;
+
+
+  case timer2: break; /*TODO*/
+
+      
+  }
+
 }
-static void (*TIMER0_callBackFunc)(void)=NULL;
+
+extern void TIMER_CTC_setOCxOnCompareMatch(const timer_id timer)
+{
+  switch (timer){
+  case timer0:
+    SET_BIT(TCCR0, TCCR0_COM00);
+    SET_BIT(TCCR0, TCCR0_COM01);
+    break;
+  case timer1:
+    break;
+  case timer2:
+    break;
+
+  }
+}
+
+extern void TIMER_CTC_clearOCxOnCompareMatch(const timer_id timer)
+{
+  switch (timer){
+  case timer0:
+    CLEAR_BIT(TCCR0, TCCR0_COM00);
+    SET_BIT(TCCR0, TCCR0_COM01);
+    break;
+  case timer1:
+    break;
+  case timer2:
+    break;
+    
+    }
+  
+}
+
+extern void TIMER_CTC_toggleOCxOnCompareMatch(const timer_id timer)
+{
+  switch (timer){
+  case timer0:
+    SET_BIT(TCCR0, TCCR0_COM00);
+    CLEAR_BIT(TCCR0, TCCR0_COM01);
+    break;
+  case timer1:
+    CLEAR_BIT(TCCR1A, TCCR1A_COM1A1);
+    SET_BIT(TCCR1A, TCCR1A_COM1A0);
+    break;
+
+  case timer2:
+    break;
+
+  default: break;
+      
+  }
+    
+}
+
+void normal_mode(const timer_id timer)
+{
+  switch (timer){
+
+  case timer0:
+    CLEAR_BIT(TCCR0, TCCR0_WGM00);
+    CLEAR_BIT(TCCR0, TCCR0_WGM01);
+    break;
+
+
+  case timer1:
+
+    /*Normal mode*/
+    CLEAR_BIT(TCCR1A, TCCR1A_WGM10);
+    CLEAR_BIT(TCCR1A, TCCR1A_WGM11);
+    CLEAR_BIT(TCCR1B, TCCR1B_WGM12);
+    CLEAR_BIT(TCCR1B, TCCR1B_WGM13);
+    break;
+
+  case timer2: break; /*TODO*/
+
+  }
+}
+
+
+
+
+
+
+void TIMER_init(const timer_id timer, const timer_mode mode, const prescaler value)
+{
+  
+  switch(mode){
+
+  case normal:
+    normal_mode(timer);
+    break;
+
+  case PWM:
+    break;
+
+  case CTC:
+    CTC_mode(timer);
+    break;
+
+  case fast_PWM:
+    fast_PWM_mode(timer);
+    break;      
+  }
+
+  TIMER_setPrescaler(timer, value);
+    
+}
 
 
 void ICU_init(void)
@@ -122,9 +282,11 @@ void ICU_init(void)
   /*Set trigger source to rising edge initially*/
   SET_BIT(TCCR1B, TCCR1B_ICES1);
 
-  /*Enable Input capture Interrupt Enable*/
-  ICU_enableInterrupt();
+  /*Input capture Interrupt Enable*/
+  SET_BIT(TIMSK, TIMSK_TICIE1);
 }
+
+
 
 void ICU_setTriggerEdge(uint8_t edge)
 {
@@ -133,43 +295,70 @@ void ICU_setTriggerEdge(uint8_t edge)
   else
     CLEAR_BIT(TCCR1B, TCCR1B_ICES1);
 }
-/*
-void ICU_enableInterrupt(void)
-{
-  SET_BIT(TIMSK, TIMSK_TICIE1);
-}
-
-*/
- /*
-void ICU_disableInterrupt(void)
-{
-  CLEAR_BIT(TIMSK, TIMSK_TICIE1);
-}
-
- */
-  /*
-uint16_t ICU_readInputCapture(void)
-{
-  return ICR1;
-}
-  */
 
 static void (*ICU_callBackFunc)(void)=NULL;
+static void (*TIMER0_normalModeOverflow)(void)=NULL;
+static void (*TIMER1_normalModeOverflow)(void)=NULL;
+static void (*TIMER2_normalModeOverflow)(void)=NULL;
+
 
 void ICU_setCallBack(void (*callBackFunc)(void))
 {
   ICU_callBackFunc=callBackFunc;
 }
-void TIMER0_setCallBack(void (*callBackFunc)(void))
+
+
+extern uint16_t ICU_readInputCapture(void)
 {
-  TIMER0_callBackFunc=callBackFunc;
+  return ICR1;
 }
 
-void __vector_10(void) __attribute__((signal));
-void __vector_10(void)
+
+void TIMER_normalModeOverflowSetCallBack(timer_id timer, void (*callBackFunc)(void))
 {
-  if(TIMER0_callBackFunc!=NULL)
-    TIMER0_callBackFunc();
+  switch (timer){
+  case timer0:
+    TIMER0_normalModeOverflow=callBackFunc;
+    SET_BIT(TIMSK, TIMSK_TOIE0);   /*Enable overflow interrupt*/
+    break;
+  case timer1:
+    TIMER1_normalModeOverflow=callBackFunc;
+    SET_BIT(TIMSK, TIMSK_TOIE1);  /*Enable overflow interrupt*/
+    break;
+  case timer2:
+    TIMER2_normalModeOverflow=callBackFunc;
+    SET_BIT(TIMSK, TIMSK_TOIE2);  /*Enable overflow interrupt*/
+    break;
+
+  }
+
+}
+
+
+
+void TIMER0_OVF_vect(void)__attribute__((signal));
+void TIMER0_OVF_vect(void)
+{
+  if(TIMER0_normalModeOverflow!=NULL)
+    TIMER0_normalModeOverflow();
+}
+
+
+
+void TIMER1_OVF_vect(void)__attribute__((signal));
+void TIMER1_OVF_vect(void)
+{
+  if(TIMER1_normalModeOverflow!=NULL)
+    TIMER1_normalModeOverflow();
+}
+
+
+
+void TIMER2_OVF_vect(void)__attribute__((signal));
+void TIMER2_OVF_vect(void)
+{
+  if(TIMER2_normalModeOverflow!=NULL)
+    TIMER2_normalModeOverflow();
 }
 
 /*ICU ISR*/

@@ -9,9 +9,9 @@
  * 
  */
 
-#include "KEYPAD_interface.h"
-#include "KEYPAD_config.h"
-#include "../CLCD/CLCD_interface.h"
+#include "../HAL/KEYPAD/KEYPAD_interface.h"
+#include "../HAL/KEYPAD/KEYPAD_config.h"
+#include "../HAL/CLCD/CLCD_interface.h"
 
 
 int main()
