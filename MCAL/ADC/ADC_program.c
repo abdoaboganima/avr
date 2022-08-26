@@ -7,19 +7,17 @@
 
 
 static uint8_t ADC_BusyState=IDLE;
+static uint16_t *ptrToReading=NULL;
+static void (*ADC_callBackFunction)(void)=NULL;
+
+
 
 void ADC_init(void)
 {
 
-  /*AVCC with external capacitor at AREF pin >> MADE: ADMUX_REFS0= 1 &ADMUX_REFS1= 0 */
-  
-  /*AREF, Internal Vref turned off*/
-  CLEAR_BIT(ADMUX, ADMUX_REFS0);
-  CLEAR_BIT(ADMUX, ADMUX_REFS0);
-
-  /*Activate Left Adjust Result*/
-  //SET_BIT(ADMUX, ADMUX_ADLAR);
-
+  /*AVCC, With external capacitor at AREF pin*/
+  SET_BIT(ADMUX, ADMUX_REFS0);
+  CLEAR_BIT(ADMUX, ADMUX_REFS1);
 
   /*Set Prescaler to divide by 128*/
   ADCSRA&=0b11111000;
@@ -31,15 +29,22 @@ void ADC_init(void)
 }
 
 
-void ADC_StartSynchConversion(uint8_t channel, uint16_t *reading)
+
+void ADC_selectChannel(ADC_channel channel)
+{
+  /*CLEAR the MUX bits in ADMUX register and Specify a Channel*/
+  ADMUX &=0b11100000;
+  ADMUX |=channel;  
+}
+
+void ADC_startSynchConversion(ADC_channel channel, uint16_t * const reading)
 {
   if(ADC_BusyState==BUSY)
     return;
   ADC_BusyState=BUSY;
-  
-  /*CLEAR the MUX bits in ADMUX register and Specify a Channel*/
-  ADMUX &=0b11100000;
-  ADMUX |=channel;
+
+  /*Select the desired channel */
+  ADC_selectChannel(channel) ;
 
   /*Start Conversion*/
   SET_BIT(ADCSRA, ADCSRA_ADSC);
@@ -54,9 +59,7 @@ void ADC_StartSynchConversion(uint8_t channel, uint16_t *reading)
   ADC_BusyState=IDLE;
 }
 
-static uint16_t *ptrToReading=NULL;
-static void (*ADC_callBackFunction)(void)=NULL;
-void ADC_StartAsynchConversion(uint8_t channel, uint16_t *reading, void (*callBackFunction)(void))
+void ADC_startAsynchConversion(ADC_channel channel, uint16_t * const reading, void (*callBackFunction)(void))
 {
   if(ADC_BusyState==BUSY)
     return;
@@ -70,9 +73,8 @@ void ADC_StartAsynchConversion(uint8_t channel, uint16_t *reading, void (*callBa
   ptrToReading=reading;
   ADC_callBackFunction=callBackFunction;
   
-  /*CLEAR the MUX bits in ADMUX register and Specify a Channel*/
-  ADMUX &=0b11100000;
-  ADMUX |=channel;
+  /*Select the desired channel */
+  ADC_selectChannel(channel) ;
 
   /*Start Conversion*/         
   SET_BIT(ADCSRA, ADCSRA_ADSC);
@@ -85,7 +87,8 @@ void ADC_StartAsynchConversion(uint8_t channel, uint16_t *reading, void (*callBa
 void __vector_16(void) __attribute__((signal));
 void __vector_16(void)
 {
-  *ptrToReading=ADC; /*This assigns the reading of the ADC to the `*reading` in the `ADC_StartAsynchConversion`*/
+  /*This assigns the reading of the ADC to the `*reading` in the `ADC_StartAsynchConversion`*/
+  *ptrToReading=ADC;
 
   /*Invoke the callbackfunction*/
   ADC_callBackFunction();
