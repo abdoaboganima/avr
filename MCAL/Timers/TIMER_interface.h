@@ -12,6 +12,8 @@
 #ifndef _TIMER_INTERFACE_H_
 #define _TIMER_INTERFACE_H_
 #include "../../LIB/STD_TYPES.h"
+#include "../../LIB/BIT_MATH.h"
+
 #include "TIMER_register.h"
 
 /**
@@ -98,7 +100,8 @@ extern void TIMER_normalModeOverflowSetCallBack(const timer_id timer, void (*cal
 extern void ICU_init(void);
 extern void ICU_setTriggerEdge(const uint8_t edge);
 extern void ICU_setCallBack(void (*callBackFunc)(void));
-
-extern uint16_t ICU_readInputCapture(void);
+#define ICU_disableInterrupt() CLEAR_BIT(TIMSK, TIMSK_TICIE1)
+#define ICU_enableInterrupt()  SET_BIT(TIMSK, TIMSK_TICIE1)
+#define ICU_readInputCapture() ICR1
 
 #endif /* _TIMER_INTERFACE_H_ */

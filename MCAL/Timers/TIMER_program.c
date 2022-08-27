@@ -157,9 +157,12 @@ void fast_PWM_mode(const timer_id timer)
     SET_BIT(TCCR1B, TCCR1B_WGM13);
 
     /*Compare output mode: Clear on Compare match, Set at Bottom*/
+    /*Channel A*/
     SET_BIT(TCCR1A, TCCR1A_COM1A1);
     CLEAR_BIT(TCCR1A, TCCR1A_COM1A0);
-
+    /*Channel B*/
+    SET_BIT(TCCR1A, TCCR1A_COM1B1);
+    CLEAR_BIT(TCCR1A, TCCR1A_COM1B0);
     break;
 
 
@@ -224,17 +227,15 @@ extern void TIMER_CTC_toggleOCxOnCompareMatch(const timer_id timer)
 
 void normal_mode(const timer_id timer)
 {
+  /*Normal mode for any timer*/
   switch (timer){
-
+    
   case timer0:
     CLEAR_BIT(TCCR0, TCCR0_WGM00);
     CLEAR_BIT(TCCR0, TCCR0_WGM01);
     break;
 
-
   case timer1:
-
-    /*Normal mode*/
     CLEAR_BIT(TCCR1A, TCCR1A_WGM10);
     CLEAR_BIT(TCCR1A, TCCR1A_WGM11);
     CLEAR_BIT(TCCR1B, TCCR1B_WGM12);
@@ -245,9 +246,6 @@ void normal_mode(const timer_id timer)
 
   }
 }
-
-
-
 
 
 
@@ -268,6 +266,7 @@ void TIMER_init(const timer_id timer, const timer_mode mode, const prescaler val
     break;
 
   case fast_PWM:
+    /*Note: in my implementation, any mode used for timer1 will be applied in both channels*/
     fast_PWM_mode(timer);
     break;      
   }
@@ -281,9 +280,6 @@ void ICU_init(void)
 {
   /*Set trigger source to rising edge initially*/
   SET_BIT(TCCR1B, TCCR1B_ICES1);
-
-  /*Input capture Interrupt Enable*/
-  SET_BIT(TIMSK, TIMSK_TICIE1);
 }
 
 
@@ -305,12 +301,8 @@ static void (*TIMER2_normalModeOverflow)(void)=NULL;
 void ICU_setCallBack(void (*callBackFunc)(void))
 {
   ICU_callBackFunc=callBackFunc;
-}
-
-
-extern uint16_t ICU_readInputCapture(void)
-{
-  return ICR1;
+  /*Input capture Interrupt Enable*/
+  SET_BIT(TIMSK, TIMSK_TICIE1);
 }
 
 
@@ -362,8 +354,8 @@ void TIMER2_OVF_vect(void)
 }
 
 /*ICU ISR*/
-void __vector_6 (void) __attribute__((signal));
-void __vector_6(void)
+void TIMER1_CAPT_vect(void) __attribute__((signal));
+void TIMER1_CAPT_vect(void)
 {
   ICU_callBackFunc();
 }
