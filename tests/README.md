@@ -120,4 +120,19 @@ So the period time of the signal = 256 * 8 uS = 2.048 mS as shown in the figure.
 In this program, I used an ADC resolution of 10 bits, and used a potentiometer as
 an analog signal source. After the conversion, the 10 bits are displayed using 10 bits;
 8 from `PORTC` and 2 from `PORTD`.
+
 ![Simulation of the ADC](./ADC_output.gif)
+
+## I2C (Inter Integrated Circuit) or TWI (Two Wire Interface)
+
+### Interfacing With EEPROM (`AT24C08`)
+
+In this test, I used `At24C08` with which them micro controller communicates using I2C bus.
+
+I read the entire contents of the EEPROM, saved it into `buffer[1024]`, 
+and sent it into the terminal using the USART.
+
+The content of the EEPROM is written by me before.
+
+
+![Simulation of the EEPROM](./EEPROM_output.gif)
