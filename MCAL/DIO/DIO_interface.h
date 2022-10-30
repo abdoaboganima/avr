@@ -4,8 +4,9 @@
  * @brief  Contains the macros and functions prototypes for DIO driver
  * @author Abdulrahman Aboghanima
  * @date   Wed Aug 18 20:02:44 2021
- * @version 0.2 
+ * @version 0.3
  */
+
 /** @addtogroup MCAL_drivers 
  * @{
  *  @addtogroup DIO_drivers 
@@ -15,32 +16,70 @@
 #define _DIO_INTERFACE_H_
 #include "../../LIB/STD_TYPES.h"
 
+/**
+ * Defines the possible states for the digital I/o pins
+ */
+typedef enum
+  {
+   DIO_PIN_INPUT,   /**< The pin is input */
+   DIO_PIN_OUTPUT,  /**< The pin is output*/
+  } DIO_PinState_t;
 
-#define DIO_PIN_OUTPUT  1
-#define DIO_PIN_INPUT   0
+/**
+ * Defines the possible states for the entire digital I/O port 
+ */
+typedef enum
+  {
+   DIO_PORT_INPUT=  0x00, /**< The entire port is input*/
+   DIO_PORT_OUTPUT= 0xff, /**< The entire port is output*/
+  } DIO_PortState_t;
 
-#define DIO_PIN_HIGH    1
-#define DIO_PIN_LOW     0
+/**
+ * Defines the possible values for the pin
+ */
+typedef enum
+  {
+   DIO_PIN_LOW = 0, /**< The pin value is low*/
+   DIO_PIN_HIGH =1, /**< The pin value is high*/
+  } DIO_PinValue_t;
 
-#define DIO_PORT_OUTPUT 0xff
-#define DIO_PORT_INPUT  0x00
+/**
+ * Defines the possible states for the port value
+ */
+typedef enum
+  {   
+   DIO_PORT_LOW  = 0x00,  /**< The entire port value is low*/
+   DIO_PORT_HIGH =  0xff, /**< The entire port value is high*/
+  } DIO_PortValue_t;
 
-#define DIO_PORT_HIGH   0xff
-#define DIO_PORT_LOW    0x00  
+/**
+ * Defines the possible ports of the micro controller
+ */
+typedef enum
+  {
+   DIO_PORTA, /**< PORTA*/
+   DIO_PORTB, /**< PORTB*/
+   DIO_PORTC, /**< PORTC*/
+   DIO_PORTD, /**< PORTD*/ 
 
-#define DIO_PORTA       0
-#define DIO_PORTB       1
-#define DIO_PORTC       2
-#define DIO_PORTD       3
+  } DIO_Port_t;
 
-#define DIO_PIN0        0
-#define DIO_PIN1        1
-#define DIO_PIN2        2
-#define DIO_PIN3        3
-#define DIO_PIN4        4
-#define DIO_PIN5        5
-#define DIO_PIN6        6
-#define DIO_PIN7        7
+/**
+ * Defines the possible channels for every port
+ */
+
+typedef enum
+  {
+   DIO_PIN0, /**< channel/pin 0*/
+   DIO_PIN1, /**< channel/pin 1*/
+   DIO_PIN2, /**< channel/pin 2*/
+   DIO_PIN3, /**< channel/pin 3*/
+   DIO_PIN4, /**< channel/pin 4*/
+   DIO_PIN5, /**< channel/pin 5*/
+   DIO_PIN6, /**< channel/pin 6*/
+   DIO_PIN7, /**< channel/pin 7*/
+  } DIO_Pin_t;
+
 
 /**
  * @brief Sets the pin direction wether it's input or output
@@ -53,7 +92,7 @@
  * @param Direction 
  * @return uint8_t 
  */
-uint8_t DIO_SetPinDirection(uint8_t Port, uint8_t Pin, uint8_t Direction);
+uint8_t DIO_SetPinDirection(DIO_Port_t Port, DIO_Pin_t Pin, DIO_PinState_t Direction);
 
 /**
  * @brief Sets the whole port direction wether it's input or output
@@ -65,7 +104,7 @@ uint8_t DIO_SetPinDirection(uint8_t Port, uint8_t Pin, uint8_t Direction);
  * @param Direction 
  * @return uint8_t 
  */
-uint8_t DIO_SetPortDirection(uint8_t Port, uint8_t Direction);
+uint8_t DIO_SetPortDirection(DIO_Port_t Port, DIO_PinState_t Direction);
 
 /**
  * @brief Sets a value for a specific pin from a specific port
@@ -77,8 +116,12 @@ uint8_t DIO_SetPortDirection(uint8_t Port, uint8_t Direction);
  * @param Pin 
  * @param Value 
  * @return uint8_t 
+ * @pre The direction of the pin should be specified
+ * @attention if the direction is DIO_PIN_INPUT and the Value is DIO_PIN_HIGH,
+ * the internal pull up resistance will be enabled
+ * @post The pin digital value will be `Value` that passed to the function
  */
-uint8_t DIO_SetPinValue(uint8_t Port, uint8_t Pin, uint8_t Value);
+uint8_t DIO_SetPinValue(DIO_Port_t Port, DIO_Pin_t Pin, DIO_PinValue_t Value);
 
 /**
  * @brief Sets the whole port to a specific value
@@ -89,22 +132,24 @@ uint8_t DIO_SetPinValue(uint8_t Port, uint8_t Pin, uint8_t Value);
  * @param Port 
  * @param Value 
  * @return uint8_t 
+ * @pre The direction of the port should be specified
+ * @post The port digital value will be `Value` that passed to the function
  */
-uint8_t DIO_SetPortValue(uint8_t Port, uint8_t Value);
+uint8_t DIO_SetPortValue(DIO_Port_t Port, uint8_t Value);
 
 /**
  * @brief Gets a specific pin value from a specific port and assign that value
  * memory location addressed by puint8_tValue
  * @code
- * //This will set the ptrto8 to be the value oc the PIN3 in the PORTD
- * DIO_GetPinValue(DIO_PORTD, DIO_PIN3, ptrtouint8_t)
+ * //This will set the ptrtou8 to be the value oc the PIN3 in the PORTD
+ * DIO_GetPinValue(DIO_PORTD, DIO_PIN3, ptrtou8_t)
  * @endcode
  * @param Port 
  * @param Pin 
  * @param puint8_tValue 
  * @return uint8_t 
  */
-uint8_t DIO_GetPinValue(uint8_t Port, uint8_t Pin, uint8_t *puint8_tValue);
+uint8_t DIO_GetPinValue(DIO_Port_t Port, DIO_Pin_t Pin, DIO_PinValue_t *puint8_tValue);
 
 /**
  * @brief Toggle a specific pin value
@@ -112,7 +157,7 @@ uint8_t DIO_GetPinValue(uint8_t Port, uint8_t Pin, uint8_t *puint8_tValue);
  * @param Pin
  * @return uint8_t 
  */
-uint8_t DIO_TogglePinValue(uint8_t Port, uint8_t Pin);
+uint8_t DIO_TogglePinValue(DIO_Port_t Port, DIO_Pin_t Pin);
 
 #endif /* _DIO_INTERFACE_H_ */
 

@@ -5,7 +5,7 @@
  * @author     Abdulrahman Aboghanima
  * @date       Tue Aug 18 18:01:26 2021
  * @copyright  Copyright (c) 2022
- * @version    0.2
+ * @version    0.3
  * 
  */
 
@@ -14,7 +14,7 @@
 #include "DIO_interface.h"
 #include "DIO_register.h"
 
-uint8_t DIO_SetPinDirection(uint8_t Port, uint8_t Pin, uint8_t Direction)
+uint8_t DIO_SetPinDirection(DIO_Port_t Port, DIO_Pin_t Pin, DIO_PinState_t Direction)
 {
   uint8_t Local_ErrorState=0;
   if(Pin<=DIO_PIN7){
@@ -45,7 +45,7 @@ uint8_t DIO_SetPinDirection(uint8_t Port, uint8_t Pin, uint8_t Direction)
 
   return Local_ErrorState;
 }
-uint8_t DIO_SetPortDirection(uint8_t Port, uint8_t Direction)
+uint8_t DIO_SetPortDirection(DIO_Port_t Port, DIO_PinState_t Direction)
 {
   uint8_t Local_ErrorState=0;
 
@@ -59,7 +59,8 @@ uint8_t DIO_SetPortDirection(uint8_t Port, uint8_t Direction)
 
   return Local_ErrorState;
 }
-uint8_t DIO_SetPinValue(uint8_t Port, uint8_t Pin, uint8_t Value)
+
+uint8_t DIO_SetPinValue(DIO_Port_t Port, DIO_Pin_t Pin, DIO_PinValue_t Value)
 {
   uint8_t Local_ErrorState=0;
   if(Pin<=DIO_PIN7){
@@ -91,7 +92,7 @@ uint8_t DIO_SetPinValue(uint8_t Port, uint8_t Pin, uint8_t Value)
   return Local_ErrorState;
 }
 
-uint8_t DIO_TogglePinValue(uint8_t Port, uint8_t Pin)
+uint8_t DIO_TogglePinValue(DIO_Port_t Port, DIO_Pin_t Pin)
 {
   uint8_t Local_ErrorState=0;
 
@@ -108,7 +109,7 @@ uint8_t DIO_TogglePinValue(uint8_t Port, uint8_t Pin)
   return Local_ErrorState;
 }
 
-uint8_t DIO_SetPortValue(uint8_t Port, uint8_t Value)
+uint8_t DIO_SetPortValue(DIO_Port_t Port, uint8_t Value)
 {
   uint8_t Local_ErrorState=0;
         
@@ -123,7 +124,8 @@ uint8_t DIO_SetPortValue(uint8_t Port, uint8_t Value)
   
   return Local_ErrorState;
 }
-uint8_t DIO_GetPinValue(uint8_t Port, uint8_t Pin, uint8_t *puint8_tValue)
+
+uint8_t DIO_GetPinValue(DIO_Port_t Port, DIO_Pin_t Pin, DIO_PinValue_t *puint8_tValue)
 {
   uint8_t Local_ErrorState=0;
 
