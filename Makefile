@@ -10,47 +10,37 @@
 
 include sources.mk 
 
-CC		:= avr-gcc		#The Compiler Used                            
-MCU       	:= atmega32		#Target MCU
-F_CPU     	:= 8000000ul		#CPU Clock Frequency
-LD        	:= avr-ld		#Linker
+#The Compiler Used
+CC		:= avr-gcc
+#Target MCU
+MCU       	:= atmega32
+#CPU Clock Frequency
+F_CPU     	:= 8000000ul
+#Linker
+LD        	:= avr-ld
 OBJCOPY   	:= avr-objcopy
 
 
 CFLAGS    := -std=c99 -Wall -Wextra -g -Os -fdata-sections -ffunction-sections -fshort-enums -mmcu=$(MCU) -DF_CPU=$(F_CPU)
 CPPFLAGS  := $(INCLUDES:%=-I%)
-LDFLAGS   := -Xlinker --gc-sections -Xlinker -Map=$(EXEC).map -Xlinker --relax -Wl,-u,vfprintf -lprintf_flt -lm #-Xlinker --strip-all
+LDFLAGS   := -Xlinker --gc-sections -Xlinker --relax -Wl,-u,vfprintf -lprintf_flt -lm #-Xlinker --strip-all
 
 
-
-OBJS	      	:= $(SOURCES:.c=.o) #For every .c file associate a .o (object)       file
-PREPROCESSED	:= $(SOURCES:.c=.i) #For every .c file associate a .i (preprocessed) file
-ASSEMBLIES	:= $(SOURCES:.c=.s) #For every .c file associate a .s (Assembly)     file
-DEPENDENCIES	:= $(SOURCES:.c=.o.d) $(TESTS:.c=.o.d)
-TESTSOBJS	:= $(TESTS:.c=.o)
 
 
 module_name	:=
 EXEC		:= $(EXEC)
-MAINFUNC	:=
 
 
 #RULES
 #######################################################################################################
 
 
-#`make all` for build and flash
-.PHONY: all
-all: $(EXEC).hex
-	make flash
-
-
 
 #`make build-all` for building all the executable files 
 .PHONY: build-all
-build-all:
-	make compile-all
-	$(foreach i, $(TESTS), make build EXEC=$(shell basename -s .c $(i)) MAINFUNC=$(i);)
+build-all: 
+	$(foreach HEX_FILE, $(HEX_FILES), make build EXEC=$(HEX_FILE:%.hex=%);)
 
 
 
@@ -60,10 +50,9 @@ build: 		$(EXEC).elf $(EXEC).lss $(EXEC).hex
 
 
 
-
 #`make compile-all` for compiling all source files
 .PHONY: compile-all
-compile-all: 	$(OBJS) $(TESTSOBJS)
+compile-all: 	$(ALLOBJS)
 
 
 
@@ -79,18 +68,17 @@ assemble-all:	$(ASSEMBLIES)
 
 
 
-
 #`make flash` to flash the hex file to the micro-controller
 .PHONY: flash
 flash: $(EXEC).hex
 	@echo Flashing to the $(MCU)..
-	avrdude -p $(MCU) -c usbasp -U flash:w:$(EXEC).hex:i -F -P usb
+	avrdude -p $(MCU) -c usbasp -U flash:w:$<:i -F -P usb
 
 
 
 
 #`make EXECUTABLENAME.lss` for generating Extended listing
-$(EXEC).lss: $(EXEC).elf
+%.lss: %.elf
 	@echo Invoking: Avr Extended listing 
 	avr-objdump -S -h $< > $@
 
@@ -98,30 +86,33 @@ $(EXEC).lss: $(EXEC).elf
 
 
 #`make EXECUTABLENAME.elf` for generating the elf file
-$(EXEC).elf: $(OBJS) $(MAINFUNC)
+%.elf: $(OBJS) %.o
 	@echo Building Target: $@
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(MAINFUNC) -o $(EXEC).elf
-	@avr-size -C $(EXEC).elf
+	$(CC) $(CFLAGS) $(LDFLAGS) -Xlinker -Map=$@.map $^ -o $@
+	@avr-size -C $@
 
 
 
 
 
 #`make x.o` generate an object file, x.o from source file, x.c,.
-%.o:%.c
+bin/%.o:%.c
+	@mkdir -p $(INCLUDES:%=bin/%)
 	@echo Compiling ---------------------------------------- $@
 	@$(CC) -c $(CFLAGS) $(CPPFLAGS) -MMD -MP -MT$@ -MF$@.d $< -o $@
 
 
 
 #`make x.asm` generate an assembly file, x.asm from source file, x.c,.
-%.asm:%.c
+bin/%.asm:%.c
+	@mkdir -p $(INCLUDES:%=bin/%)
 	$(CC) -S $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 
 
 #`make x.i` generate a preprocessed file, x.i from source file, x.c,.
-%.i:%.c
+bin/%.i:%.c
+	@mkdir -p $(INCLUDES:%=bin/%)
 	$(CC) -E $(CFLAFS) $(CPPFLAGS) $< -o $@
 
 
@@ -160,10 +151,10 @@ test:
 	@echo
 	@echo The objects  are :  $(OBJS)
 	@echo Test files   are :  $(TESTSOBJS)
-
+	@echo Hex files    are :  $(HEX_FILES)
 
 .PHONY: clean
 clean:
 	@rm -rf $(OBJS) $(PREPROCESSED) $(ASSEMBLIES) $(DEPENDENCIES) $(TESTSOBJS) \
-	*.out *.map *.elf *.map *.hex *.s *.i *.d *.lss *.o *.obj
+	*.out *.map *.elf *.map *.hex *.s *.i *.d *.lss *.o *.obj bin
 	@echo CLEANED!
