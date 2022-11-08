@@ -29,5 +29,16 @@
 #define TIMER0_COMP_vect   _VECTOR(10)
 #define TIMER0_OVF_vect    _VECTOR(11)
 
+#define ISR_ALIAS(vector) void vector(void)__attribute__((signal));
+
+ISR_ALIAS(TIMER2_COMP_vect );
+ISR_ALIAS(TIMER2_OVF_vect  );
+ISR_ALIAS(TIMER1_CAPT_vect );
+ISR_ALIAS(TIMER1_COMPA_vect);
+ISR_ALIAS(TIMER1_COMPB_vect);
+ISR_ALIAS(TIMER1_OVF_vect  );
+ISR_ALIAS(TIMER0_COMP_vect );
+ISR_ALIAS(TIMER0_OVF_vect  );
+
 
 #endif /* _TIMER_PRIVATE_H_ */

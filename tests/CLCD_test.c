@@ -1,12 +1,17 @@
-/*
- * main.c
+/**
  *
- *  Created on: Aug 21, 2021
- *      Author: Abdulrahman Aboghanima
+ * @file       CLCD_test.c
+ * @brief      Contains some tests format the CLCD
+ * @author     Abdulrahman Aboghanima
+ * @date       Aug 21 21:37:21 2021
+ * @copyright  Copyright (c) 2022
+ * @version    0.1
+ * 
  */
-#include "../../LIB/STD_TYPES.h"
-#include "../../HAL/CLCD/CLCD_interface.h"
-#include "../../MCAL/DIO/DIO_interface.h"
+
+#include "../LIB/STD_TYPES.h"
+#include "../HAL/CLCD/CLCD_interface.h"
+#include "../MCAL/DIO/DIO_interface.h"
 #include <util/delay.h>
 
 int main(void){
@@ -31,11 +36,11 @@ int main(void){
 
   while(1){
 
-    CLCD_init();
+    CLCD_Clear();
     CLCD_GoTOXY(0, 0);
     CLCD_SendString("Welcome to Repo");
     _delay_ms(100);
-    CLCD_init();
+    CLCD_Clear();
     CLCD_GoTOXY(1, 1);
     CLCD_SendString("Welcome to Repo");
     _delay_ms(100);

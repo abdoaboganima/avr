@@ -60,7 +60,7 @@ extern void CLCD_SendData(const uint8_t Data)
 }
 void CLCD_Clear(void)
 {
-  CLCD_SendCommand(0b00000010);
+  CLCD_SendCommand(0b00000001);
 }
 void CLCD_Blink(void)
 {

@@ -326,7 +326,32 @@ void TIMER_normalModeOverflowSetCallBack(timer_id timer, void (*callBackFunc)(vo
 
 }
 
+static void (* timer1CompACallBack)(void)=NULL;
+static void (* timer1CompBCallBack)(void)=NULL;
 
+extern void TIMER1_setChannelAComapareMatchCallBack(void (*callBack)(void))
+{
+  SET_BIT(TIMSK, TIMSK_OCIE1A);
+  timer1CompACallBack=callBack;
+}
+extern void TIMER1_setChannelBComapareMatchCallBack(void (*callBack)(void))
+{
+  SET_BIT(TIMSK, TIMSK_OCIE1B);
+  timer1CompBCallBack=callBack;
+}
+
+
+void TIMER1_COMPA_vect(void)
+{
+  if(timer1CompACallBack!=NULL)
+    timer1CompACallBack();
+}
+
+void TIMER1_COMPB_vect(void)
+{
+  if(timer1CompBCallBack!=NULL)
+    timer1CompBCallBack();
+}
 
 void TIMER0_OVF_vect(void)__attribute__((signal));
 void TIMER0_OVF_vect(void)

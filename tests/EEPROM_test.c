@@ -27,21 +27,32 @@ int main(void)
   
   DIO_SetPortDirection(DIO_PORTC, DIO_PORT_OUTPUT);
 
+  uint8_t var;
   TWI_initMaster();
   USART_init();
   USART_sendStream("Testing EEPROM\n\n");
 
-
-  USART_sendStream("Reading the Entire EEPROM:\n");
+  EEPROM_writeByte('5', 0x0110);
+  EEPROM_writeByte('6', 0x0210);
+  EEPROM_writeByte('7', 0x0310);
+  
+  EEPROM_readByte(&var, 0x0110);
+  USART_send(var);
+  EEPROM_readByte(&var, 0x0210);
+  USART_send(var);
+  EEPROM_readByte(&var, 0x0310);
+  USART_send(var);
+  
+  USART_sendStream("\nReading the Entire EEPROM:\n");
   /*Reading the entire contents of the EEPROM and saving it into `buffer`*/
   EEPROM_readSequence((uint8_t*)buffer, 0, 1024);
 
   for(uint16_t i=0; i<1024; i++){
     USART_send(buffer[i]);
-    if(i%64==0)
+    if((i+1)%64==0)
       USART_send('\n');
   }
-
+  
   
   EEPROM_writePage((uint8_t*)data, 0, 16);
   EEPROM_writePage((uint8_t*)&data[16], 16, 16);

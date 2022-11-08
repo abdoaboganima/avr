@@ -33,24 +33,23 @@ So in order to access that location you have to through the following address in
 
 extern void EEPROM_writeByte(const uint8_t data, const uint16_t address)
 {
-  TWI_sendStartCondition();
-  /*Send slave address (which consists also of the number of block)*/
-  TWI_sendSlaveAddressWithWrite( EEPROM_ADDRESS | (address>>8) );
-  /*Send the address of the byte in the block(block consists of 256 bytes)*/
-  TWI_masterWrite( (uint8_t) address);
-  TWI_masterWrite(data);
-  TWI_sendStopCondition();
+
+  /*Slave address (1 0 1 0 [A2] [X9] [X8]) where X9X8 is the num of block*/
+  uint8_t device_address= EEPROM_ADDRESS | (address>>8);
+  /*The address of the byte in the block(block consists of 256 bytes)*/
+  uint8_t data_location = (uint8_t) address;
+
+  TWI_write_byte(device_address, data_location, data);
 }
 
 extern void EEPROM_readByte(uint8_t * const var, const uint16_t address)
 {
-  TWI_sendStartCondition();
-  TWI_sendSlaveAddressWithWrite(EEPROM_ADDRESS | (address>>8));
-  TWI_masterWrite((uint8_t) address);
-  TWI_sendRepeatedStartCondition();
-  TWI_sendSlaveAddressWithRead(EEPROM_ADDRESS | (address>>8));
-  TWI_masterRead(var, 1);
-  TWI_sendStopCondition();
+  /*Slave address (1 0 1 0 [A2] [X9] [X8]) where X9X8 is the num of block*/
+  uint8_t device_address= EEPROM_ADDRESS | (address>>8);
+  /*The address of the byte in the block(block consists of 256 bytes)*/
+  uint8_t data_location = (uint8_t) address;
+
+  *var=TWI_read_byte(device_address, data_location);
 }
 
 extern void EEPROM_writePage(const uint8_t * const sequence, const uint16_t firstAddress, const uint8_t pageSize)

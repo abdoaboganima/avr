@@ -9,10 +9,10 @@
  * 
  */
 
-#include "NOKIA5110_interface.h"
+#include "../HAL/NOKIA5110/NOKIA5110_interface.h"
 #include "util/delay.h"
-#include "../../LIB/STD_TYPES.h"
-#include "../../LIB/BIT_MATH.h"
+#include "../LIB/STD_TYPES.h"
+#include "../LIB/BIT_MATH.h"
 
 
 const uint8_t image[] = {

@@ -25,9 +25,9 @@ int main()
   DIO_SetPinValue(DIO_PORTA, DIO_PIN1, DIO_PIN_HIGH);
   DIO_SetPinValue(DIO_PORTA, DIO_PIN2, DIO_PIN_HIGH);
 
-  RTOS_create_task(0, 1000, LED1); /*Task that's executed every 1000 systick (us)*/
-  RTOS_create_task(1, 2000, LED1); /*Task that's executed every 2000 systick (us)*/
-  RTOS_create_task(2, 3000, LED1); /*Task that's executed every 3000 systick (us)*/
+  RTOS_create_task(0, 1000, LED1, 1000); /*Task that's executed every 1000 systick (us)*/
+  RTOS_create_task(1, 2000, LED1, 2000); /*Task that's executed every 2000 systick (us)*/
+  RTOS_create_task(2, 3000, LED1, 3000); /*Task that's executed every 3000 systick (us)*/
   
   RTOS_start();
 

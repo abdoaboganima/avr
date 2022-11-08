@@ -1,4 +1,4 @@
- /**
+/**
  * @file EEPROM_interface.h
  * @author Abdulrahman Aboghanima (abdoaboganima@icloud.com)
  * @brief  Contains functions declaration for the EEPROM module
@@ -13,6 +13,7 @@
  
  /**
  * @brief Send a byte of data to the EEPROM
+ * @pre   `TWI` must be initialized.
  * @param data 
  * @param address 
  */
@@ -21,13 +22,15 @@ extern void EEPROM_writeByte(const uint8_t data, const uint16_t address);
  /**
  * @brief Read a byte of data from the EEPROM, the byte will be stored 
  * in the memory location addressed by `var`.
+ * @pre   `TWI` must be initialized.
  * @param var 
- * @param address 
+ * @param address
  */
 extern void EEPROM_readByte(uint8_t * const var, const uint16_t address);
 
  /**
  * @brief Send sequence of data addressed by `sequence` to the EEPROM across the I^{2}C bus
+ * @pre   `TWI` must be initialized.
  * @bug Sending more than 12 bytes across the I2C bus causes errors.
  * @param sequence 
  * @param firstAddress 
@@ -39,8 +42,9 @@ extern void EEPROM_readByte(uint8_t * const var, const uint16_t address);
  */
 extern void EEPROM_writePage(const uint8_t * const sequence, const uint16_t firstAddress, const uint8_t pageSize);
 
- /**
+/**
  * @brief Read sequence of data from the EEPROM and store them in a memory location addressed by `sequence`
+ * @pre   `TWI` must be initialized.
  * @param sequence 
  * @param firstAddress 
  * @param pageSize

@@ -79,6 +79,11 @@ extern void TIMER_CTC_toggleOCxOnCompareMatch(const timer_id timer);
 
 extern void TIMER1_setChannelAComapareMatchValue(const uint16_t channelACompareMatchValue);
 extern void TIMER1_setChannelBComapareMatchValue(const uint16_t channelBCompareMatchValue);
+extern void TIMER1_setChannelAComapareMatchCallBack(void (*callBack)(void));
+extern void TIMER1_setChannelBComapareMatchCallBack(void (*callBack)(void));
+
+
+
 extern void TIMER1_setICR(const uint16_t inputCaptureValue);
 
 /**
